@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnGetAuctions = new System.Windows.Forms.Button();
             this.lstAuctionTitles = new System.Windows.Forms.ListBox();
             this.btnGetItems = new System.Windows.Forms.Button();
@@ -38,12 +39,14 @@
             this.FullDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberOfBids = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurrentPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGetAuctions
             // 
-            this.btnGetAuctions.Location = new System.Drawing.Point(12, 12);
+            this.btnGetAuctions.Location = new System.Drawing.Point(3, 3);
             this.btnGetAuctions.Name = "btnGetAuctions";
             this.btnGetAuctions.Size = new System.Drawing.Size(94, 23);
             this.btnGetAuctions.TabIndex = 0;
@@ -54,14 +57,14 @@
             // lstAuctionTitles
             // 
             this.lstAuctionTitles.FormattingEnabled = true;
-            this.lstAuctionTitles.Location = new System.Drawing.Point(12, 41);
+            this.lstAuctionTitles.Location = new System.Drawing.Point(3, 35);
             this.lstAuctionTitles.Name = "lstAuctionTitles";
             this.lstAuctionTitles.Size = new System.Drawing.Size(447, 95);
             this.lstAuctionTitles.TabIndex = 2;
             // 
             // btnGetItems
             // 
-            this.btnGetItems.Location = new System.Drawing.Point(13, 143);
+            this.btnGetItems.Location = new System.Drawing.Point(3, 141);
             this.btnGetItems.Name = "btnGetItems";
             this.btnGetItems.Size = new System.Drawing.Size(75, 23);
             this.btnGetItems.TabIndex = 3;
@@ -83,11 +86,12 @@
             this.FullDescription,
             this.NumberOfBids,
             this.CurrentPrice});
-            this.dataGridView1.Location = new System.Drawing.Point(13, 173);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 173);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(784, 257);
+            this.dataGridView1.Size = new System.Drawing.Size(803, 266);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -114,11 +118,13 @@
             this.ShortDescription.HeaderText = "Short Description";
             this.ShortDescription.Name = "ShortDescription";
             this.ShortDescription.ReadOnly = true;
-            this.ShortDescription.Width = 104;
+            this.ShortDescription.Width = 200;
             // 
             // FullDescription
             // 
             this.FullDescription.DataPropertyName = "FullDescription";
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle3;
             this.FullDescription.HeaderText = "Full Description";
             this.FullDescription.Name = "FullDescription";
             this.FullDescription.ReadOnly = true;
@@ -140,19 +146,36 @@
             this.CurrentPrice.ReadOnly = true;
             this.CurrentPrice.Width = 86;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.lstAuctionTitles, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnGetAuctions, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnGetItems, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 106F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(809, 442);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 442);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.btnGetItems);
-            this.Controls.Add(this.lstAuctionTitles);
-            this.Controls.Add(this.btnGetAuctions);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -169,6 +192,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FullDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberOfBids;
         private System.Windows.Forms.DataGridViewTextBoxColumn CurrentPrice;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 
