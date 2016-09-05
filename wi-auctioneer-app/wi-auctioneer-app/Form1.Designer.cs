@@ -32,6 +32,12 @@
             this.lstAuctionTitles = new System.Windows.Forms.ListBox();
             this.btnGetItems = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Picture = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ShortDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberOfBids = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CurrentPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,18 +74,77 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Picture,
+            this.ShortDescription,
+            this.FullDescription,
+            this.NumberOfBids,
+            this.CurrentPrice});
             this.dataGridView1.Location = new System.Drawing.Point(13, 173);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(622, 257);
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.Size = new System.Drawing.Size(784, 257);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 43;
+            // 
+            // Picture
+            // 
+            this.Picture.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Picture.DataPropertyName = "Picture";
+            this.Picture.HeaderText = "Picture";
+            this.Picture.Name = "Picture";
+            this.Picture.ReadOnly = true;
+            this.Picture.Width = 46;
+            // 
+            // ShortDescription
+            // 
+            this.ShortDescription.DataPropertyName = "ShortDescription";
+            this.ShortDescription.HeaderText = "Short Description";
+            this.ShortDescription.Name = "ShortDescription";
+            this.ShortDescription.ReadOnly = true;
+            this.ShortDescription.Width = 104;
+            // 
+            // FullDescription
+            // 
+            this.FullDescription.DataPropertyName = "FullDescription";
+            this.FullDescription.HeaderText = "Full Description";
+            this.FullDescription.Name = "FullDescription";
+            this.FullDescription.ReadOnly = true;
+            this.FullDescription.Width = 200;
+            // 
+            // NumberOfBids
+            // 
+            this.NumberOfBids.DataPropertyName = "NumberOfBids";
+            this.NumberOfBids.HeaderText = "Number of Bids";
+            this.NumberOfBids.Name = "NumberOfBids";
+            this.NumberOfBids.ReadOnly = true;
+            this.NumberOfBids.Width = 78;
+            // 
+            // CurrentPrice
+            // 
+            this.CurrentPrice.DataPropertyName = "CurrentPrice";
+            this.CurrentPrice.HeaderText = "Current Price";
+            this.CurrentPrice.Name = "CurrentPrice";
+            this.CurrentPrice.ReadOnly = true;
+            this.CurrentPrice.Width = 86;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 442);
+            this.ClientSize = new System.Drawing.Size(809, 442);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnGetItems);
             this.Controls.Add(this.lstAuctionTitles);
@@ -98,6 +163,12 @@
         private System.Windows.Forms.ListBox lstAuctionTitles;
         private System.Windows.Forms.Button btnGetItems;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewImageColumn Picture;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShortDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumberOfBids;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CurrentPrice;
     }
 }
 

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using wi_auctioneer_app.Models;
@@ -17,6 +18,7 @@ namespace wi_auctioneer_app
 {
     public partial class Form1 : Form
     {
+        private static Regex digitsOnly = new Regex(@"[^\d]");
         public Form1()
         {
             InitializeComponent();
@@ -73,7 +75,7 @@ namespace wi_auctioneer_app
                     switch (i)
                     {
                         case 0:
-                            itemToAdd.ID = int.Parse(auctionCell.InnerText.Replace("morepics",""));
+                            itemToAdd.ID = int.Parse(digitsOnly.Replace(auctionCell.InnerText,""));
                             break;
                         case 1:
                             itemToAdd.Picture = GetImageFromURL(auctionCell.LastChild.LastChild.Attributes[1].Value);
@@ -82,10 +84,10 @@ namespace wi_auctioneer_app
                             itemToAdd.FullDescription = auctionCell.InnerText;
                             break;
                         case 3:
-                            itemToAdd.NumberOfBids = int.Parse(auctionCell.InnerText);
+                            itemToAdd.NumberOfBids = int.Parse(auctionCell.InnerText.Replace("&nbsp;","0"));
                             break;
                         case 5:
-                            itemToAdd.CurrentPrice = double.Parse(auctionCell.InnerText);
+                            itemToAdd.CurrentPrice = double.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));
                             break;
                     }
                     //MessageBox.Show(auctionCell.InnerText);
@@ -97,16 +99,40 @@ namespace wi_auctioneer_app
                 //MessageBox.Show(auctionTitle.InnerText);
                 //lstAuctionTitles.Items.Add(auctionTitle.InnerText);
             }
-            dataGridView1.DataSource = auctionItems;
+
+            BindingSource bs = new BindingSource();
+
+            bs.DataSource = typeof(AuctionItem);
+
+            foreach(AuctionItem item in auctionItems)
+            {
+                bs.Add(item);   
+            }
+
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSource = bs;
         }
 
        public Image GetImageFromURL(string url)
         {
-            WebClient wc = new WebClient();
-            byte[] bytes = wc.DownloadData(url);
-            MemoryStream ms = new MemoryStream(bytes);
-            System.Drawing.Image img = System.Drawing.Image.FromStream(ms);
+            System.Drawing.Image img;
+            try
+            {
+                WebClient wc = new WebClient();
+                byte[] bytes = wc.DownloadData(url);
+                MemoryStream ms = new MemoryStream(bytes);
+                img = System.Drawing.Image.FromStream(ms);
+            }
+            catch
+            {
+                return null;
+            }
             return img;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
