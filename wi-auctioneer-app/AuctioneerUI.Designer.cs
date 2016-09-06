@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuctioneerUI));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGetItems = new System.Windows.Forms.Button();
+            this.chkIncludeEnded = new System.Windows.Forms.CheckBox();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Picture = new System.Windows.Forms.DataGridViewImageColumn();
             this.ShortDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberOfBids = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurrentPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnGetItems = new System.Windows.Forms.Button();
-            this.chkIncludeEnded = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -67,57 +69,6 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(958, 404);
             this.dataGridView1.TabIndex = 4;
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 43;
-            // 
-            // Picture
-            // 
-            this.Picture.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Picture.DataPropertyName = "Picture";
-            this.Picture.HeaderText = "Picture";
-            this.Picture.Name = "Picture";
-            this.Picture.ReadOnly = true;
-            this.Picture.Width = 46;
-            // 
-            // ShortDescription
-            // 
-            this.ShortDescription.DataPropertyName = "ShortDescription";
-            this.ShortDescription.HeaderText = "Short Description";
-            this.ShortDescription.Name = "ShortDescription";
-            this.ShortDescription.ReadOnly = true;
-            this.ShortDescription.Width = 250;
-            // 
-            // FullDescription
-            // 
-            this.FullDescription.DataPropertyName = "FullDescription";
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle1;
-            this.FullDescription.HeaderText = "Full Description";
-            this.FullDescription.Name = "FullDescription";
-            this.FullDescription.ReadOnly = true;
-            this.FullDescription.Width = 300;
-            // 
-            // NumberOfBids
-            // 
-            this.NumberOfBids.DataPropertyName = "NumberOfBids";
-            this.NumberOfBids.HeaderText = "Number of Bids";
-            this.NumberOfBids.Name = "NumberOfBids";
-            this.NumberOfBids.ReadOnly = true;
-            this.NumberOfBids.Width = 78;
-            // 
-            // CurrentPrice
-            // 
-            this.CurrentPrice.DataPropertyName = "CurrentPrice";
-            this.CurrentPrice.HeaderText = "Current Price";
-            this.CurrentPrice.Name = "CurrentPrice";
-            this.CurrentPrice.ReadOnly = true;
-            this.CurrentPrice.Width = 86;
             // 
             // tableLayoutPanel1
             // 
@@ -167,6 +118,62 @@
             this.chkIncludeEnded.Text = "Include Ended";
             this.chkIncludeEnded.UseVisualStyleBackColor = true;
             // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 43;
+            // 
+            // Picture
+            // 
+            this.Picture.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Picture.DataPropertyName = "Picture";
+            this.Picture.HeaderText = "Picture";
+            this.Picture.Name = "Picture";
+            this.Picture.ReadOnly = true;
+            this.Picture.Width = 46;
+            // 
+            // ShortDescription
+            // 
+            this.ShortDescription.DataPropertyName = "ShortDescription";
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShortDescription.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ShortDescription.HeaderText = "Short Description";
+            this.ShortDescription.Name = "ShortDescription";
+            this.ShortDescription.ReadOnly = true;
+            this.ShortDescription.Width = 250;
+            // 
+            // FullDescription
+            // 
+            this.FullDescription.DataPropertyName = "FullDescription";
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle2;
+            this.FullDescription.HeaderText = "Full Description";
+            this.FullDescription.Name = "FullDescription";
+            this.FullDescription.ReadOnly = true;
+            this.FullDescription.Width = 300;
+            // 
+            // NumberOfBids
+            // 
+            this.NumberOfBids.DataPropertyName = "NumberOfBids";
+            this.NumberOfBids.HeaderText = "Number of Bids";
+            this.NumberOfBids.Name = "NumberOfBids";
+            this.NumberOfBids.ReadOnly = true;
+            this.NumberOfBids.Width = 78;
+            // 
+            // CurrentPrice
+            // 
+            this.CurrentPrice.DataPropertyName = "CurrentPrice";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = "-";
+            this.CurrentPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            this.CurrentPrice.HeaderText = "Current Price";
+            this.CurrentPrice.Name = "CurrentPrice";
+            this.CurrentPrice.ReadOnly = true;
+            this.CurrentPrice.Width = 86;
+            // 
             // AuctioneerUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,15 +194,15 @@
         #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btnGetItems;
+        private System.Windows.Forms.CheckBox chkIncludeEnded;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewImageColumn Picture;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShortDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberOfBids;
         private System.Windows.Forms.DataGridViewTextBoxColumn CurrentPrice;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnGetItems;
-        private System.Windows.Forms.CheckBox chkIncludeEnded;
     }
 }
 
