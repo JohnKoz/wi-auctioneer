@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace wi_auctioneer_app.Models
+namespace wi_auctioneer_models
 {
-    class AuctionItem
+    public class AuctionItem
     {
         private string _fulldescription;
 
@@ -23,8 +23,8 @@ namespace wi_auctioneer_app.Models
             get { return _fulldescription; }
             set {
                 _fulldescription = value;
-
-                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-'));
+            
+                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-'));
             }
         }
 
