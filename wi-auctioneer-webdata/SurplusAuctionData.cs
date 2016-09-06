@@ -16,7 +16,7 @@ namespace wi_auctioneer_webdata
     {
         private static Regex digitsOnly = new Regex(@"[^\d]");
 
-        public static IEnumerable<Auction> GetAllAuctions(bool includeImages)
+        public static IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded)
         {
             List<Auction> auctions = new List<Auction>();
             var doc = new HAP.HtmlDocument();
@@ -29,16 +29,19 @@ namespace wi_auctioneer_webdata
 
             foreach (HAP.HtmlNode auctionTitle in auctionTitles)
             {
-                Auction auctionToAdd;
+                if (includeEnded || !auctionTitle.InnerText.Contains("CLOSED"))
+                {
+                    Auction auctionToAdd;
 
-                auctionToAdd = new Auction();
+                    auctionToAdd = new Auction();
 
-                auctionToAdd.AuctionID = int.Parse(auctionTitle.InnerText.Substring(7, 2)); ;
-                auctionToAdd.AuctionName = auctionTitle.InnerText;
+                    auctionToAdd.AuctionID = int.Parse(auctionTitle.InnerText.Substring(7, 2)); ;
+                    auctionToAdd.AuctionName = auctionTitle.InnerText;
 
-                auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd.AuctionName, includeImages);
+                    auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd.AuctionName, includeImages);
 
-                auctions.Add(auctionToAdd);
+                    auctions.Add(auctionToAdd);
+                }
             }
 
             return auctions;

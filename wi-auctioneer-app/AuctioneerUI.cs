@@ -27,7 +27,7 @@ namespace wi_auctioneer_app
         private void btnGetItems_Click(object sender, EventArgs e)
         {
             try {
-                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(false).ToList();
+                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(false, chkIncludeEnded.Checked).ToList();
 
                 BindingSource bs = new BindingSource();
 
@@ -48,6 +48,5 @@ namespace wi_auctioneer_app
                 MessageBox.Show(ex.Message, "Exception Encountered", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
