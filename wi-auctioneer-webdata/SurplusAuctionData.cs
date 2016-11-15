@@ -24,11 +24,11 @@ namespace wi_auctioneer_webdata
             int counter = 0;
             //updateText("Retrieving auction list");
 
-            bw.ReportProgress(0, "Retrieving auction list");
+            bw?.ReportProgress(0, "Retrieving auction list");
 
             doc.LoadHtml(new WebClient().DownloadString("http://www.maxanet.com/cgi-bin/mncal.cgi?rlust"));
 
-            bw.ReportProgress(10, "Auction list retrieved, starting auction loads");
+            bw?.ReportProgress(10, "Auction list retrieved, starting auction loads");
 
             var root = doc.DocumentNode;
 
@@ -105,7 +105,7 @@ namespace wi_auctioneer_webdata
                             percentage = 100;
                         }
 
-                        bw.ReportProgress(percentage, "Loading " + auctionToAdd.AuctionName);
+                        bw?.ReportProgress(percentage, "Loading " + auctionToAdd.AuctionName);
 
                         auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd, includeImages);
 
