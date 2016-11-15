@@ -39,5 +39,7 @@ namespace wi_auctioneer_models
         public int NumberOfBids { get; set; }
 
         public double CurrentPrice { get; set; }
+
+        public double NextBidRequired { get; set; }
     }
 }

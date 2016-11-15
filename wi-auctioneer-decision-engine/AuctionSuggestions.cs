@@ -14,15 +14,39 @@ namespace wi_auctioneer_decision_engine
             StringBuilder suggestions = new StringBuilder();
             foreach (AuctionItem auctionItem in autionItems)
             {
-                
-                if (auctionItem.FullDescription.ToLower().Contains("tool") && auctionItem.CurrentPrice < 100)
+                List<string> keywords = new List<string>();
+
+                keywords.AddRange(new string[]{ "tool", "hammer", "drill", "saw"});
+
+                if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
+                    && auctionItem.CurrentPrice < 100
+                    && auctionItem.NextBidRequired < 100)
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
+                    continue;
                 }
 
-                if (auctionItem.FullDescription.ToLower().Contains("acre") && auctionItem.CurrentPrice < 1000 && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
+                keywords.Clear();
+                keywords.AddRange(new string[] { "acre", "land", "property" });
+
+                if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
+                    && auctionItem.CurrentPrice < 1000
+                    && auctionItem.NextBidRequired < 1000
+                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
+                    continue;
+                }
+
+                keywords.Clear();
+                keywords.AddRange(new string[] { "desktop", "laptop", "ipad" });
+
+                if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
+                    && auctionItem.CurrentPrice < 200
+                    && auctionItem.NextBidRequired < 200)
+                {
+                    suggestions.Append(formatAuctionItem(auctionItem));
+                    continue;
                 }
             }
 

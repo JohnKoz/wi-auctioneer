@@ -161,6 +161,9 @@ namespace wi_auctioneer_webdata
                         case 5:
                             itemToAdd.CurrentPrice = double.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));
                             break;
+                        case 6:
+                            itemToAdd.NextBidRequired = double.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));
+                            break;
                     }
                     //MessageBox.Show(auctionCell.InnerText);
 
