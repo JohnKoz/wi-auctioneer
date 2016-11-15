@@ -22,25 +22,30 @@ namespace wi_auctioneer_console
             }
             
 
-            foreach (
-
-            Auction auction in auctions)
+            foreach (Auction auction in auctions)
+            {
+                Console.WriteLine(auction.AuctionName + " Ending at: "+ auction.AuctionEndDate);
+                if (!auction.AuctionName.Contains("AUCTION SUSPENDED"))
                 {
-                    Console.WriteLine(auction.AuctionName + " Ending at: "+ auction.AuctionEndDate);
-
-
-
-                    emailBody.Append(auction.AuctionName + "<br />");
-
-
+                    foreach (AuctionItem auctionItem in auction.AuctionItems)
+                    {
+                        if (auctionItem.FullDescription.ToLower().Contains("tool") && auctionItem.CurrentPrice < 100)
+                        {
+                            emailBody.Append("Potential auction find:<br />");
+                            emailBody.Append(auctionItem.Auction.AuctionName + " - " + auctionItem.ShortDescription + " Price: " + auctionItem.CurrentPrice.ToString("C") + "<br />");
+                        }
+                    }
                 }
 
-                if (!String.IsNullOrEmpty(password))
-                {
-                    EmailService.SendEmail("Auction Testing", emailBody.ToString(), password);
-                }
+            }
 
-                Console.ReadLine();
+            if (!String.IsNullOrEmpty(password) && emailBody.Length > 0)
+            {
+                Console.Write("Sending Email");
+                EmailService.SendEmail("Potential Auction Finds", emailBody.ToString(), password);
+            }
+
+            Console.ReadLine();
 
 
         }
