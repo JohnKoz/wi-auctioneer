@@ -32,48 +32,77 @@ namespace wi_auctioneer_webdata
 
             var root = doc.DocumentNode;
 
-            var auctionTitles = root.Descendants().Where(n => n.GetAttributeValue("id", "").Equals("auction_title"));
+            var auctionNodes = root.SelectNodes("//table");
 
 
-            foreach (HAP.HtmlNode auctionTitle in auctionTitles)
+
+            //var auctionTitles = root.Descendants().Where(n => n.GetAttributeValue("id", "").Equals("auction_title"));
+
+            foreach (HAP.HtmlNode auctionNode in auctionNodes)
             {
-                if (includeEnded || !auctionTitle.InnerText.Contains("CLOSED"))
+                if (auctionNode.InnerText.Contains("Any of the words") ||
+                    auctionNode.InnerHtml.Contains("www.auctioneers.org"))
                 {
-                    Auction auctionToAdd;
-
-                    auctionToAdd = new Auction();
-
-                    auctionToAdd.AuctionID = int.Parse(auctionTitle.InnerText.Substring(7, 2)); ;
-                    auctionToAdd.AuctionName = auctionTitle.InnerText;
-
-                    int percentage = int.Parse(Math.Round(((counter + 1) / (double)(auctionTitles.Count()-10) * 100)).ToString());
-
-                    percentage += 10;
-
-                    if (percentage > 100)
-                    {
-                        percentage = 100;
-                    }
-
-                    bw.ReportProgress(percentage, "Loading " + auctionToAdd.AuctionName);
-
-                    auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd.AuctionName, includeImages);
-                    
-                    auctions.Add(auctionToAdd);
+                    continue;
                 }
-                counter++;
+
+                string auctionTitle =
+                    auctionNode.Descendants()
+                        .Where(n => n.GetAttributeValue("id", "").Equals("auction_title"))
+                        .First()
+                        .InnerText;
+
+
+                 string auctionEnd = auctionNode.InnerText.Replace(auctionTitle, "");
+
+                auctionEnd = auctionEnd.Remove(auctionEnd.IndexOf(')') + 1);
+
+                auctionEnd = auctionEnd.Replace("\n ", "");
+
+                //foreach (HAP.HtmlNode auctionTitle in auctionTitles)
+                //{
+                if (includeEnded || !auctionTitle.Contains("CLOSED"))
+                    {
+                        Auction auctionToAdd;
+
+                        auctionToAdd = new Auction();
+
+                        auctionToAdd.AuctionEnd = auctionEnd;
+
+                        auctionToAdd.AuctionID = int.Parse(auctionTitle.Substring(7, 2));
+                        
+                        auctionToAdd.AuctionName = auctionTitle;
+
+                        int percentage =
+                            int.Parse(Math.Round(((counter + 1)/(double) (auctionNodes.Count() - 10)*100)).ToString());
+
+                        percentage += 10;
+
+                        if (percentage > 100)
+                        {
+                            percentage = 100;
+                        }
+
+                        bw.ReportProgress(percentage, "Loading " + auctionToAdd.AuctionName);
+
+                        auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd, includeImages);
+
+                        auctions.Add(auctionToAdd);
+                    }
+                    counter++;
+                //}
             }
 
             return auctions;
         }
 
-        public static IEnumerable<AuctionItem> GetAuctionItemsByName(string auctionName, bool includeImages)
+        public static IEnumerable<AuctionItem> GetAuctionItemsByName(Auction auction, bool includeImages)
         {
             string auctionURL;
             int auctionNumber;
             List<AuctionItem> auctionItems = new List<AuctionItem>();
 
-            auctionNumber = int.Parse(auctionName.Substring(7, 2));
+            auctionNumber = int.Parse(auction.AuctionName.Substring(7, 2));
 
             auctionURL = String.Format("http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust{0}/category/ALL", auctionNumber);
 
@@ -116,7 +145,8 @@ namespace wi_auctioneer_webdata
                     i++;
                 }
 
-                itemToAdd.AuctionName = auctionName;
+                itemToAdd.AuctionName = auction.AuctionName;
+                itemToAdd.Auction = auction;
 
                 auctionItems.Add(itemToAdd);
             }

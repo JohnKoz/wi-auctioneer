@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace wi_auctioneer_models
 {
-    public class Auction
+    public class Auction : System.Object
     {
         public int AuctionID { get; set; }
 
         public string AuctionName { get; set; }
 
+        public string AuctionEnd { get; set; }
+
+        public DateTime AuctionEndDate { get; set; }
+
         public IEnumerable<AuctionItem> AuctionItems { get; set; }
+
+        public override string ToString()
+        {
+            return AuctionName + Environment.NewLine + AuctionEnd;
+        }
     }
 }

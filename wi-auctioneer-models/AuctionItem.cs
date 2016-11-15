@@ -19,6 +19,7 @@ namespace wi_auctioneer_models
 
         public string ShortDescription { get; set; }
 
+        public Auction Auction { get; set; }
 
         public string FullDescription
         {
