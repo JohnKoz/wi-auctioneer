@@ -29,7 +29,6 @@ namespace wi_auctioneer_app
 
         private void btnGetItems_Click(object sender, EventArgs e)
         {
-            //SplashForm.ShowSplashScreen();
             this.Enabled = false;
             backgroundWorker1.RunWorkerAsync();
         }
@@ -39,19 +38,29 @@ namespace wi_auctioneer_app
         {
             try
             {
-                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
-
-
-                foreach (Auction auction in auctions)
-                {
-                    foreach (AuctionItem item in auction.AuctionItems)
+                if (!chkGetFirstRow.Checked)
                     {
-                        auctionItems.Add(item);
+                    List<Auction> auctions = SurplusAuctionData.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
+                    foreach (Auction auction in auctions)
+                    {
+                        foreach (AuctionItem item in auction.AuctionItems)
+                        {
+                            auctionItems.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    List<Auction> auctions = SurplusAuctionData_Test.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
+                    foreach (Auction auction in auctions)
+                    {
+                        foreach (AuctionItem item in auction.AuctionItems)
+                        {
+                            auctionItems.Add(item);
+                        }
                     }
                 }
 
-
-                //SplashForm.CloseForm();
             }
             catch (Exception ex)
             {
@@ -68,7 +77,7 @@ namespace wi_auctioneer_app
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void bindData(List<AuctionItem> auctionItems)
