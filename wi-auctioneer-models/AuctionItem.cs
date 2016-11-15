@@ -26,8 +26,12 @@ namespace wi_auctioneer_models
             get { return _fulldescription; }
             set {
                 _fulldescription = value;
-            
-                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-'));
+                if (_fulldescription.Substring(0, _fulldescription.Length).Contains("+/-"))
+                {
+                    _fulldescription = _fulldescription.Replace("+/-", "");
+                }
+                    ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-'));
+                
             }
         }
 
