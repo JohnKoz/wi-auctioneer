@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuctioneerUI));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +50,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.txtLoadingText = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.chkIncludeImages = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -100,8 +101,8 @@
             // ShortDescription
             // 
             this.ShortDescription.DataPropertyName = "ShortDescription";
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShortDescription.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShortDescription.DefaultCellStyle = dataGridViewCellStyle4;
             this.ShortDescription.HeaderText = "Short Description";
             this.ShortDescription.Name = "ShortDescription";
             this.ShortDescription.ReadOnly = true;
@@ -110,8 +111,8 @@
             // FullDescription
             // 
             this.FullDescription.DataPropertyName = "FullDescription";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle5;
             this.FullDescription.HeaderText = "Full Description";
             this.FullDescription.Name = "FullDescription";
             this.FullDescription.ReadOnly = true;
@@ -128,9 +129,9 @@
             // CurrentPrice
             // 
             this.CurrentPrice.DataPropertyName = "CurrentPrice";
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = "-";
-            this.CurrentPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = "-";
+            this.CurrentPrice.DefaultCellStyle = dataGridViewCellStyle6;
             this.CurrentPrice.HeaderText = "Current Price";
             this.CurrentPrice.Name = "CurrentPrice";
             this.CurrentPrice.ReadOnly = true;
@@ -159,6 +160,7 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnGetItems);
             this.flowLayoutPanel1.Controls.Add(this.chkIncludeEnded);
+            this.flowLayoutPanel1.Controls.Add(this.chkIncludeImages);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -211,12 +213,14 @@
             this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // statusStrip1
             // 
@@ -239,6 +243,17 @@
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(200, 19);
+            // 
+            // chkIncludeImages
+            // 
+            this.chkIncludeImages.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkIncludeImages.AutoSize = true;
+            this.chkIncludeImages.Location = new System.Drawing.Point(242, 6);
+            this.chkIncludeImages.Name = "chkIncludeImages";
+            this.chkIncludeImages.Size = new System.Drawing.Size(98, 17);
+            this.chkIncludeImages.TabIndex = 6;
+            this.chkIncludeImages.Text = "Include Images";
+            this.chkIncludeImages.UseVisualStyleBackColor = true;
             // 
             // AuctioneerUI
             // 
@@ -281,6 +296,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel txtLoadingText;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.CheckBox chkIncludeImages;
     }
 }
 

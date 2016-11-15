@@ -48,7 +48,14 @@ namespace wi_auctioneer_webdata
 
                     int percentage = int.Parse(Math.Round(((counter + 1) / (double)(auctionTitles.Count()-10) * 100)).ToString());
 
-                    bw.ReportProgress(percentage + 10, "Loading " + auctionToAdd.AuctionName);
+                    percentage += 10;
+
+                    if (percentage > 100)
+                    {
+                        percentage = 100;
+                    }
+
+                    bw.ReportProgress(percentage, "Loading " + auctionToAdd.AuctionName);
 
                     auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd.AuctionName, includeImages);
                     

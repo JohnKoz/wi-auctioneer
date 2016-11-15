@@ -19,14 +19,17 @@ namespace wi_auctioneer_app
 {
     public partial class AuctioneerUI : Form
     {
+        private List<AuctionItem> auctionItems;
         public AuctioneerUI()
         {
             InitializeComponent();
+
+            auctionItems = new List<AuctionItem>();
         }
 
         private void btnGetItems_Click(object sender, EventArgs e)
         {
-            SplashForm.ShowSplashScreen();
+            //SplashForm.ShowSplashScreen();
             this.Enabled = false;
             backgroundWorker1.RunWorkerAsync();
         }
@@ -36,23 +39,19 @@ namespace wi_auctioneer_app
         {
             try
             {
-                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(false, chkIncludeEnded.Checked, backgroundWorker1).ToList();
+                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
 
-                BindingSource bs = new BindingSource();
-
-                bs.DataSource = typeof(AuctionItem);
 
                 foreach (Auction auction in auctions)
                 {
                     foreach (AuctionItem item in auction.AuctionItems)
                     {
-                        bs.Add(item);
+                        auctionItems.Add(item);
                     }
                 }
 
-                dataGridView1.AutoGenerateColumns = false;
-                dataGridView1.DataSource = bs;
-                SplashForm.CloseForm();
+
+                //SplashForm.CloseForm();
             }
             catch (Exception ex)
             {
@@ -65,6 +64,44 @@ namespace wi_auctioneer_app
             toolStripProgressBar1.Value = e.ProgressPercentage;
 
             txtLoadingText.Text = e.UserState.ToString();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            bindData(auctionItems.Where(x => x.FullDescription.Contains(txtSearch.Text)).ToList());
+        }
+
+        private void bindData(List<AuctionItem> auctionItems)
+        {
+            BindingSource bs = new BindingSource();
+
+            bs.DataSource = typeof(AuctionItem);
+
+            foreach (AuctionItem item in auctionItems)
+            {
+                bs.Add(item);
+            }
+
+            if (!chkIncludeImages.Checked)
+            {
+                dataGridView1.Columns["Picture"].Visible = false;
+            }
+            else
+            {
+                dataGridView1.Columns["Picture"].Visible = true;
+            }
+
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSource = bs;
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            bindData(auctionItems);
+
+            txtLoadingText.Text = "Auctions loaded";
+
+            this.Enabled = true;
         }
     }
 }
