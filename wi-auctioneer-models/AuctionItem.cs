@@ -15,6 +15,8 @@ namespace wi_auctioneer_models
 
         public Image Picture { get; set; }
 
+        public string AuctionName { get; set; }
+
         public string ShortDescription { get; set; }
 
 

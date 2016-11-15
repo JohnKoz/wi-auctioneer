@@ -28,35 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuctioneerUI));
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AuctionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Picture = new System.Windows.Forms.DataGridViewImageColumn();
             this.ShortDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberOfBids = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurrentPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGetItems = new System.Windows.Forms.Button();
             this.chkIncludeEnded = new System.Windows.Forms.CheckBox();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.chkIncludeImages = new System.Windows.Forms.CheckBox();
+            this.filterCriteria = new System.Windows.Forms.GroupBox();
+            this.txtMaxBids = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtMinBids = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtMaxPrice = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtMinPrice = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtKeywords = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnApply = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.txtLoadingText = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.chkIncludeImages = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.txtLoadingText = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chkMustContainAll = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
+            this.filterCriteria.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 773F));
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.filterCriteria, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1140, 456);
+            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // dataGridView1
             // 
@@ -64,9 +92,12 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
+            this.AuctionName,
             this.Picture,
             this.ShortDescription,
             this.FullDescription,
@@ -74,11 +105,14 @@
             this.CurrentPrice});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 2);
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 35);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 103);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(958, 418);
+            this.dataGridView1.Size = new System.Drawing.Size(1134, 350);
             this.dataGridView1.TabIndex = 4;
             // 
             // ID
@@ -88,6 +122,13 @@
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Width = 43;
+            // 
+            // AuctionName
+            // 
+            this.AuctionName.DataPropertyName = "AuctionName";
+            this.AuctionName.HeaderText = "Auction Name";
+            this.AuctionName.Name = "AuctionName";
+            this.AuctionName.ReadOnly = true;
             // 
             // Picture
             // 
@@ -101,8 +142,8 @@
             // ShortDescription
             // 
             this.ShortDescription.DataPropertyName = "ShortDescription";
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShortDescription.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShortDescription.DefaultCellStyle = dataGridViewCellStyle1;
             this.ShortDescription.HeaderText = "Short Description";
             this.ShortDescription.Name = "ShortDescription";
             this.ShortDescription.ReadOnly = true;
@@ -111,12 +152,13 @@
             // FullDescription
             // 
             this.FullDescription.DataPropertyName = "FullDescription";
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FullDescription.DefaultCellStyle = dataGridViewCellStyle2;
             this.FullDescription.HeaderText = "Full Description";
             this.FullDescription.Name = "FullDescription";
             this.FullDescription.ReadOnly = true;
-            this.FullDescription.Width = 300;
+            this.FullDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.FullDescription.Width = 500;
             // 
             // NumberOfBids
             // 
@@ -129,32 +171,13 @@
             // CurrentPrice
             // 
             this.CurrentPrice.DataPropertyName = "CurrentPrice";
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = "-";
-            this.CurrentPrice.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = "-";
+            this.CurrentPrice.DefaultCellStyle = dataGridViewCellStyle3;
             this.CurrentPrice.HeaderText = "Current Price";
             this.CurrentPrice.Name = "CurrentPrice";
             this.CurrentPrice.ReadOnly = true;
             this.CurrentPrice.Width = 86;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 330F));
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(964, 456);
-            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // flowLayoutPanel1
             // 
@@ -164,7 +187,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(628, 26);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(361, 94);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // btnGetItems
@@ -188,32 +211,127 @@
             this.chkIncludeEnded.Text = "Include Ended";
             this.chkIncludeEnded.UseVisualStyleBackColor = true;
             // 
-            // flowLayoutPanel2
+            // chkIncludeImages
             // 
-            this.flowLayoutPanel2.Controls.Add(this.txtSearch);
-            this.flowLayoutPanel2.Controls.Add(this.btnSearch);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(637, 3);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(324, 26);
-            this.flowLayoutPanel2.TabIndex = 6;
+            this.chkIncludeImages.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkIncludeImages.AutoSize = true;
+            this.chkIncludeImages.Location = new System.Drawing.Point(242, 6);
+            this.chkIncludeImages.Name = "chkIncludeImages";
+            this.chkIncludeImages.Size = new System.Drawing.Size(98, 17);
+            this.chkIncludeImages.TabIndex = 6;
+            this.chkIncludeImages.Text = "Include Images";
+            this.chkIncludeImages.UseVisualStyleBackColor = true;
             // 
-            // txtSearch
+            // filterCriteria
             // 
-            this.txtSearch.Location = new System.Drawing.Point(3, 3);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(232, 20);
-            this.txtSearch.TabIndex = 0;
+            this.filterCriteria.Controls.Add(this.chkMustContainAll);
+            this.filterCriteria.Controls.Add(this.txtMaxBids);
+            this.filterCriteria.Controls.Add(this.label5);
+            this.filterCriteria.Controls.Add(this.txtMinBids);
+            this.filterCriteria.Controls.Add(this.label6);
+            this.filterCriteria.Controls.Add(this.txtMaxPrice);
+            this.filterCriteria.Controls.Add(this.label4);
+            this.filterCriteria.Controls.Add(this.txtMinPrice);
+            this.filterCriteria.Controls.Add(this.label3);
+            this.filterCriteria.Controls.Add(this.txtKeywords);
+            this.filterCriteria.Controls.Add(this.label2);
+            this.filterCriteria.Controls.Add(this.btnApply);
+            this.filterCriteria.Location = new System.Drawing.Point(370, 3);
+            this.filterCriteria.Name = "filterCriteria";
+            this.filterCriteria.Size = new System.Drawing.Size(767, 94);
+            this.filterCriteria.TabIndex = 6;
+            this.filterCriteria.TabStop = false;
+            this.filterCriteria.Text = "Filter Criteria";
             // 
-            // btnSearch
+            // txtMaxBids
             // 
-            this.btnSearch.Location = new System.Drawing.Point(241, 3);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 1;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.txtMaxBids.Location = new System.Drawing.Point(181, 65);
+            this.txtMaxBids.Name = "txtMaxBids";
+            this.txtMaxBids.Size = new System.Drawing.Size(76, 20);
+            this.txtMaxBids.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(121, 68);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Max Bids:";
+            // 
+            // txtMinBids
+            // 
+            this.txtMinBids.Location = new System.Drawing.Point(63, 65);
+            this.txtMinBids.Name = "txtMinBids";
+            this.txtMinBids.Size = new System.Drawing.Size(52, 20);
+            this.txtMinBids.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Min Bids:";
+            // 
+            // txtMaxPrice
+            // 
+            this.txtMaxPrice.Location = new System.Drawing.Point(181, 39);
+            this.txtMaxPrice.Name = "txtMaxPrice";
+            this.txtMaxPrice.Size = new System.Drawing.Size(76, 20);
+            this.txtMaxPrice.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(121, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Max Price:";
+            // 
+            // txtMinPrice
+            // 
+            this.txtMinPrice.Location = new System.Drawing.Point(63, 39);
+            this.txtMinPrice.Name = "txtMinPrice";
+            this.txtMinPrice.Size = new System.Drawing.Size(52, 20);
+            this.txtMinPrice.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Min Price:";
+            // 
+            // txtKeywords
+            // 
+            this.txtKeywords.Location = new System.Drawing.Point(181, 13);
+            this.txtKeywords.Name = "txtKeywords";
+            this.txtKeywords.Size = new System.Drawing.Size(423, 20);
+            this.txtKeywords.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(169, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Description (separate by commas):";
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(686, 65);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.TabIndex = 0;
+            this.btnApply.Text = "Apply Filters";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // backgroundWorker1
             // 
@@ -230,47 +348,46 @@
             this.txtLoadingText});
             this.statusStrip1.Location = new System.Drawing.Point(0, 431);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(964, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1140, 25);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // txtLoadingText
-            // 
-            this.txtLoadingText.Name = "txtLoadingText";
-            this.txtLoadingText.Size = new System.Drawing.Size(0, 20);
             // 
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(200, 19);
             // 
-            // chkIncludeImages
+            // txtLoadingText
             // 
-            this.chkIncludeImages.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chkIncludeImages.AutoSize = true;
-            this.chkIncludeImages.Location = new System.Drawing.Point(242, 6);
-            this.chkIncludeImages.Name = "chkIncludeImages";
-            this.chkIncludeImages.Size = new System.Drawing.Size(98, 17);
-            this.chkIncludeImages.TabIndex = 6;
-            this.chkIncludeImages.Text = "Include Images";
-            this.chkIncludeImages.UseVisualStyleBackColor = true;
+            this.txtLoadingText.Name = "txtLoadingText";
+            this.txtLoadingText.Size = new System.Drawing.Size(0, 20);
+            // 
+            // chkMustContainAll
+            // 
+            this.chkMustContainAll.AutoSize = true;
+            this.chkMustContainAll.Location = new System.Drawing.Point(611, 15);
+            this.chkMustContainAll.Name = "chkMustContainAll";
+            this.chkMustContainAll.Size = new System.Drawing.Size(102, 17);
+            this.chkMustContainAll.TabIndex = 12;
+            this.chkMustContainAll.Text = "Must Contain All";
+            this.chkMustContainAll.UseVisualStyleBackColor = true;
             // 
             // AuctioneerUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 456);
+            this.ClientSize = new System.Drawing.Size(1140, 456);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AuctioneerUI";
             this.Text = "WI Auctioneer";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
+            this.filterCriteria.ResumeLayout(false);
+            this.filterCriteria.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -278,25 +395,36 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnGetItems;
         private System.Windows.Forms.CheckBox chkIncludeEnded;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel txtLoadingText;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.CheckBox chkIncludeImages;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AuctionName;
         private System.Windows.Forms.DataGridViewImageColumn Picture;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShortDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberOfBids;
         private System.Windows.Forms.DataGridViewTextBoxColumn CurrentPrice;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel txtLoadingText;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.CheckBox chkIncludeImages;
+        private System.Windows.Forms.GroupBox filterCriteria;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtMinPrice;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtKeywords;
+        private System.Windows.Forms.TextBox txtMaxBids;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtMinBids;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtMaxPrice;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox chkMustContainAll;
     }
 }
 

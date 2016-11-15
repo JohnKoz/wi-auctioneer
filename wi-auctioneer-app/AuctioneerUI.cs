@@ -23,7 +23,7 @@ namespace wi_auctioneer_app
         public AuctioneerUI()
         {
             InitializeComponent();
-
+            filterCriteria.Enabled = false;
             auctionItems = new List<AuctionItem>();
         }
 
@@ -68,7 +68,7 @@ namespace wi_auctioneer_app
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            bindData(auctionItems.Where(x => x.FullDescription.Contains(txtSearch.Text)).ToList());
+            
         }
 
         private void bindData(List<AuctionItem> auctionItems)
@@ -101,7 +101,52 @@ namespace wi_auctioneer_app
 
             txtLoadingText.Text = "Auctions loaded";
 
+            filterCriteria.Enabled = true;
+
             this.Enabled = true;
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            List<AuctionItem> filteredItems = auctionItems;
+            if (txtKeywords.Text.Length > 0)
+            {
+                string[] items = txtKeywords.Text.Split(',');
+
+                if (chkMustContainAll.Checked)
+                {
+
+                    filteredItems = filteredItems.Where(x => items.All(x.FullDescription.Contains)).ToList();
+
+                }
+                else
+                {
+                    filteredItems = filteredItems.Where(x => items.Any(x.FullDescription.Contains)).ToList();
+                }
+
+            }
+
+            if (txtMinPrice.Text.Length > 0)
+            {
+                filteredItems = filteredItems.Where(x => x.CurrentPrice >= Double.Parse(txtMinPrice.Text)).ToList();
+            }
+
+            if (txtMaxPrice.Text.Length > 0)
+            {
+                filteredItems = filteredItems.Where(x => x.CurrentPrice <= Double.Parse(txtMaxPrice.Text)).ToList();
+            }
+
+            if (txtMinBids.Text.Length > 0)
+            {
+                filteredItems = filteredItems.Where(x => x.NumberOfBids >= int.Parse(txtMinBids.Text)).ToList();
+            }
+
+            if (txtMaxBids.Text.Length > 0)
+            {
+                filteredItems = filteredItems.Where(x => x.NumberOfBids <= int.Parse(txtMaxBids.Text)).ToList();
+            }
+
+            bindData(filteredItems);
         }
     }
 }

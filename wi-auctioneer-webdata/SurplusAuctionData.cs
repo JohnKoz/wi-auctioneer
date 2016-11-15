@@ -115,6 +115,9 @@ namespace wi_auctioneer_webdata
 
                     i++;
                 }
+
+                itemToAdd.AuctionName = auctionName;
+
                 auctionItems.Add(itemToAdd);
             }
 
