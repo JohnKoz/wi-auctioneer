@@ -26,8 +26,17 @@ namespace wi_auctioneer_app
 
         private void btnGetItems_Click(object sender, EventArgs e)
         {
-            try {
-                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(false, chkIncludeEnded.Checked).ToList();
+            SplashForm.ShowSplashScreen();
+            this.Enabled = false;
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                List<Auction> auctions = SurplusAuctionData.GetAllAuctions(false, chkIncludeEnded.Checked, backgroundWorker1).ToList();
 
                 BindingSource bs = new BindingSource();
 
@@ -43,10 +52,19 @@ namespace wi_auctioneer_app
 
                 dataGridView1.AutoGenerateColumns = false;
                 dataGridView1.DataSource = bs;
-            } catch (Exception ex)
+                SplashForm.CloseForm();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception Encountered", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            toolStripProgressBar1.Value = e.ProgressPercentage;
+
+            txtLoadingText.Text = e.UserState.ToString();
         }
     }
 }

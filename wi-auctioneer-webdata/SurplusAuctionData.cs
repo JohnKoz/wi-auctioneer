@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,16 +17,23 @@ namespace wi_auctioneer_webdata
     {
         private static Regex digitsOnly = new Regex(@"[^\d]");
 
-        public static IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded)
+        public static IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded, BackgroundWorker bw)
         {
             List<Auction> auctions = new List<Auction>();
             var doc = new HAP.HtmlDocument();
+            int counter = 0;
+            //updateText("Retrieving auction list");
+
+            bw.ReportProgress(0, "Retrieving auction list");
 
             doc.LoadHtml(new WebClient().DownloadString("http://www.maxanet.com/cgi-bin/mncal.cgi?rlust"));
+
+            bw.ReportProgress(10, "Auction list retrieved, starting auction loads");
 
             var root = doc.DocumentNode;
 
             var auctionTitles = root.Descendants().Where(n => n.GetAttributeValue("id", "").Equals("auction_title"));
+
 
             foreach (HAP.HtmlNode auctionTitle in auctionTitles)
             {
@@ -38,10 +46,15 @@ namespace wi_auctioneer_webdata
                     auctionToAdd.AuctionID = int.Parse(auctionTitle.InnerText.Substring(7, 2)); ;
                     auctionToAdd.AuctionName = auctionTitle.InnerText;
 
-                    auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd.AuctionName, includeImages);
+                    int percentage = int.Parse(Math.Round(((counter + 1) / (double)(auctionTitles.Count()-10) * 100)).ToString());
 
+                    bw.ReportProgress(percentage + 10, "Loading " + auctionToAdd.AuctionName);
+
+                    auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd.AuctionName, includeImages);
+                    
                     auctions.Add(auctionToAdd);
                 }
+                counter++;
             }
 
             return auctions;
