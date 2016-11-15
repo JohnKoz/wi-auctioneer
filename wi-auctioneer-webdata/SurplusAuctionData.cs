@@ -55,9 +55,29 @@ namespace wi_auctioneer_webdata
 
                  string auctionEnd = auctionNode.InnerText.Replace(auctionTitle, "");
 
-                auctionEnd = auctionEnd.Remove(auctionEnd.IndexOf(')') + 1);
+                if (auctionEnd.Contains(')'))
+                {
+                    auctionEnd = auctionEnd.Remove(auctionEnd.IndexOf(')') + 1);
+                }
+                else
+                {
+                    auctionEnd = auctionEnd.Remove(auctionEnd.IndexOf("Central") + 7);
+                }
 
                 auctionEnd = auctionEnd.Replace("\n ", "");
+
+                string auctionEndDate = auctionEnd.ToLower().Replace("ends: ", "").Replace(" starting at","");
+
+                if (auctionEndDate.Contains("am"))
+                {
+                    auctionEndDate = auctionEndDate.Remove(auctionEndDate.IndexOf("am") + 2);
+                }
+                else
+                {
+                    auctionEndDate = auctionEndDate.Remove(auctionEndDate.IndexOf("pm") + 2);
+                }
+
+                auctionEndDate = auctionEndDate.Replace("-", "");
 
                 //foreach (HAP.HtmlNode auctionTitle in auctionTitles)
                 //{
@@ -68,6 +88,8 @@ namespace wi_auctioneer_webdata
                         auctionToAdd = new Auction();
 
                         auctionToAdd.AuctionEnd = auctionEnd;
+
+                        auctionToAdd.AuctionEndDate = DateTime.Parse(auctionEndDate);
 
                         auctionToAdd.AuctionID = int.Parse(auctionTitle.Substring(7, 2));
                         
