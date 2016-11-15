@@ -24,17 +24,18 @@ namespace wi_auctioneer_models
         public string FullDescription
         {
             get { return _fulldescription; }
-            set {
+            set
+            {
                 _fulldescription = value;
                 if (_fulldescription.Substring(0, _fulldescription.Length).Contains("+/-"))
                 {
                     _fulldescription = _fulldescription.Replace("+/-", "");
                 }
-                    ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-'));
-                
+                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-'));
+
             }
         }
-
+        public string AuctionItemURL { get; set; }
 
         public int NumberOfBids { get; set; }
 

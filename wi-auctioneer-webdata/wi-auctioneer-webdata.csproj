@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SurplusAuctionData.cs" />
+    <Compile Include="SurplusAuctionData_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\wi-auctioneer-models\wi-auctioneer-models.csproj">
