@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{1759D339-6109-41A6-876B-0229880B9D5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>wi_auctioneer_console</RootNamespace>
-    <AssemblyName>wi-auctioneer-console</AssemblyName>
+    <RootNamespace>wi_auctioneer_decision_engine</RootNamespace>
+    <AssemblyName>wi-auctioneer-decision-engine</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,25 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmailService.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="AuctionSuggestions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\wi-auctioneer-decision-engine\wi-auctioneer-decision-engine.csproj">
-      <Project>{1759d339-6109-41a6-876b-0229880b9d5b}</Project>
-      <Name>wi-auctioneer-decision-engine</Name>
-    </ProjectReference>
     <ProjectReference Include="..\wi-auctioneer-models\wi-auctioneer-models.csproj">
       <Project>{20867ec5-8199-46ed-8bce-b9cfdd486eee}</Project>
       <Name>wi-auctioneer-models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\wi-auctioneer-webdata\wi-auctioneer-webdata.csproj">
-      <Project>{fda8c3d4-9e5f-4966-9ca3-74db7537f4f4}</Project>
-      <Name>wi-auctioneer-webdata</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

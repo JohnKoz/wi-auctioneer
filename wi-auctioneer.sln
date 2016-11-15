@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wi-auctioneer-webdata", "wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wi-auctioneer-console", "wi-auctioneer-console\wi-auctioneer-console.csproj", "{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wi-auctioneer-decision-engine", "wi-auctioneer-decision-engine\wi-auctioneer-decision-engine.csproj", "{1759D339-6109-41A6-876B-0229880B9D5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
