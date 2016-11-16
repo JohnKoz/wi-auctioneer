@@ -55,7 +55,7 @@ namespace wi_auctioneer_decision_engine
 
         private static string formatAuctionItem(AuctionItem item)
         {
-            return item.Auction.AuctionName + " - " + item.ShortDescription + " Price: " +
+            return item.Auction.AuctionName + " - <a href='" + item.AuctionItemURL +"'>"+ item.ShortDescription + "</a> Price: " +
                    item.CurrentPrice.ToString("C") + " " + item.Auction.AuctionEnd +"<br />" + Environment.NewLine;
         }
     }
