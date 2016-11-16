@@ -147,7 +147,7 @@ namespace wi_auctioneer_webdata
                     {
                         case 0:
                             itemToAdd.ID = int.Parse(digitsOnly.Replace(auctionCell.InnerText, "") == "" ? "0" : digitsOnly.Replace(auctionCell.InnerText, ""));
-                            itemToAdd.AuctionItemURL = "http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust" + auctionCell.InnerHtml.Substring(34, 8);
+                            itemToAdd.AuctionItemURL = "http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust" + auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("rlust") + 5), ((auctionCell.InnerHtml.IndexOf("\">")) - ((auctionCell.InnerHtml.IndexOf("rlust") + 5))));
                             break;
                         case 1:
                             if(includeImages)
