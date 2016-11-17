@@ -42,5 +42,7 @@ namespace wi_auctioneer_models
         public double CurrentPrice { get; set; }
 
         public double NextBidRequired { get; set; }
+
+        public string ItemCondition { get; set; }
     }
 }

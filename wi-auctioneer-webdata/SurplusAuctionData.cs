@@ -150,12 +150,21 @@ namespace wi_auctioneer_webdata
                             itemToAdd.AuctionItemURL = "http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust" + auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("rlust") + 5), ((auctionCell.InnerHtml.IndexOf("\">")) - ((auctionCell.InnerHtml.IndexOf("rlust") + 5))));
                             break;
                         case 1:
-                            if(includeImages)
+
+                            if (includeImages)
                                 itemToAdd.Picture = GetImageFromURL(auctionCell.LastChild.LastChild.Attributes[1].Value);
                             break;
                         case 2:
                             itemToAdd.FullDescription = auctionCell.InnerText;
-                            break;
+                            if (itemToAdd.FullDescription.Contains("CONDITION:"))
+                            {
+                                itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("CONDITION:") + 10), ((auctionCell.InnerHtml.IndexOf("LOCATION:")) - (auctionCell.InnerHtml.IndexOf("CONDITION") + 10))); 
+                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>  -", "");
+                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br> -", "");
+                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>-", "");
+                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>", "");
+                            }
+                                break;
                         case 3:
                             itemToAdd.NumberOfBids = int.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));
                             break;
