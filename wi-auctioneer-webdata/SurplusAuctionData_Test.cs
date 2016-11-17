@@ -16,7 +16,7 @@ namespace wi_auctioneer_webdata
     public static class SurplusAuctionData_Test
     {
         private static Regex digitsOnly = new Regex(@"[^\d]");
-        public static IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded, BackgroundWorker bw)
+        public static IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded, BackgroundWorker bw, string txtTestURL)
         {
             List<Auction> auctions = new List<Auction>();
             var doc = new HAP.HtmlDocument();
@@ -33,12 +33,10 @@ namespace wi_auctioneer_webdata
 
             var auctionNodes = root.SelectNodes("//table");
 
-
-
-            //var auctionTitles = root.Descendants().Where(n => n.GetAttributeValue("id", "").Equals("auction_title"));
-
             foreach (HAP.HtmlNode auctionNode in auctionNodes)
             {
+                if (auctionNode.InnerHtml.Contains(txtTestURL.Substring(txtTestURL.IndexOf("rlust"),7)))
+                {
                 if (auctionNode.InnerText.Contains("Any of the words") ||
                     auctionNode.InnerHtml.Contains("www.auctioneers.org"))
                 {
@@ -88,9 +86,8 @@ namespace wi_auctioneer_webdata
 
                     auctions.Add(auctionToAdd);
                 }
-                break;
                 counter++;
-                //}
+            }
             }
 
             return auctions;
@@ -125,7 +122,7 @@ namespace wi_auctioneer_webdata
                     {
                         case 0:
                             itemToAdd.ID = int.Parse(digitsOnly.Replace(auctionCell.InnerText, "") == "" ? "0" : digitsOnly.Replace(auctionCell.InnerText, ""));
-                            itemToAdd.AuctionItemURL = "http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust" + auctionCell.InnerHtml.Substring(34,8);                           
+                            itemToAdd.AuctionItemURL = "http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust" + auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("rlust") + 5), ((auctionCell.InnerHtml.IndexOf("\">")) - ((auctionCell.InnerHtml.IndexOf("rlust") + 5))));
                             break;
                         case 1:
                             if (includeImages)
@@ -133,6 +130,7 @@ namespace wi_auctioneer_webdata
                             break;
                         case 2:
                             itemToAdd.FullDescription = auctionCell.InnerText;
+                            itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("CONDITION:") + 10), ((auctionCell.InnerHtml.IndexOf("LOCATION:")) - (auctionCell.InnerHtml.IndexOf("CONDITION"))));
                             break;
                         case 3:
                             itemToAdd.NumberOfBids = int.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));
@@ -148,7 +146,6 @@ namespace wi_auctioneer_webdata
                 itemToAdd.Auction = auction;
 
                 auctionItems.Add(itemToAdd);
-                break;
             }
 
             return auctionItems;
@@ -172,7 +169,7 @@ namespace wi_auctioneer_webdata
                 return null;
             }
             return img;
-        }
+        }    
     }
 }
 

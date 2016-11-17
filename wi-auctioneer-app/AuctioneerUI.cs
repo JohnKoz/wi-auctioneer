@@ -51,7 +51,7 @@ namespace wi_auctioneer_app
                 }
                 else
                 {
-                    List<Auction> auctions = SurplusAuctionData_Test.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
+                    List<Auction> auctions = SurplusAuctionData_Test.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1, txtTestURL.Text).ToList();
                     foreach (Auction auction in auctions)
                     {
                         foreach (AuctionItem item in auction.AuctionItems)
@@ -64,7 +64,7 @@ namespace wi_auctioneer_app
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Exception Encountered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + " " + ex.StackTrace, "Exception Encountered", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
