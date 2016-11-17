@@ -20,7 +20,8 @@ namespace wi_auctioneer_decision_engine
 
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 100
-                    && auctionItem.NextBidRequired < 100)
+                    && auctionItem.NextBidRequired < 100
+                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
                     continue;
@@ -39,11 +40,24 @@ namespace wi_auctioneer_decision_engine
                 }
 
                 keywords.Clear();
-                keywords.AddRange(new string[] { "desktop", "laptop", "ipad" });
+                keywords.AddRange(new string[] { "desktop", "laptop", "ipad", "server" });
 
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 200
-                    && auctionItem.NextBidRequired < 200)
+                    && auctionItem.NextBidRequired < 200
+                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
+                {
+                    suggestions.Append(formatAuctionItem(auctionItem));
+                    continue;
+                }
+
+                keywords.Clear();
+                keywords.AddRange(new string[] { "truck", "car", "vehicle", "boat" });
+
+                if (keywords.Any(auctionItem.FullDescription.ToLower().Contains)
+                    && auctionItem.CurrentPrice < 500
+                    && auctionItem.NextBidRequired < 500
+                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
                     continue;
