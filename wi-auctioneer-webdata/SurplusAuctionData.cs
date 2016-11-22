@@ -126,6 +126,13 @@ namespace wi_auctioneer_webdata
 
             auctionNumber = int.Parse(auction.AuctionName.Substring(7, 2));
 
+
+            System.Convert.ToString(auctionNumber);
+            if (System.Convert.ToString(auctionNumber).Contains("-"))
+                {
+                auctionNumber = int.Parse(auction.AuctionName.Substring(8, 2));
+            }
+
             auctionURL = String.Format("http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust{0}/category/ALL", auctionNumber);
 
             var doc = new HAP.HtmlDocument();
