@@ -32,7 +32,7 @@ namespace wi_auctioneer_console
             }
 
 #if DEBUG
-            Console.WriteLine(emailBody.ToString());
+            Console.WriteLine(emailBody.ToString().Replace("<br />",""));
 #endif
 
 
