@@ -39,7 +39,7 @@ namespace wi_auctioneer_console
             if (!String.IsNullOrEmpty(password) && emailBody.Length > 0)
             {
 #if !DEBUG
-                EmailService.SendEmail("Potential Auction Finds", "Potential auction finds:<br />" + emailBody.ToString(), password);
+                EmailService.SendEmail("Potential Auction Finds for " + DateTime.Today.ToString("d"), "Potential auction finds:<br />" + emailBody.ToString(), password);
 #endif
             }
 
