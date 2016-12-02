@@ -126,6 +126,13 @@ namespace wi_auctioneer_webdata
 
             auctionNumber = int.Parse(auction.AuctionName.Substring(7, 2));
 
+
+            System.Convert.ToString(auctionNumber);
+            if (System.Convert.ToString(auctionNumber).Contains("-"))
+                {
+                auctionNumber = int.Parse(auction.AuctionName.Substring(8, 2));
+            }
+
             auctionURL = String.Format("http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust{0}/category/ALL", auctionNumber);
 
             var doc = new HAP.HtmlDocument();
@@ -158,11 +165,24 @@ namespace wi_auctioneer_webdata
                             itemToAdd.FullDescription = auctionCell.InnerText;
                             if (itemToAdd.FullDescription.Contains("CONDITION:"))
                             {
-                                itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("CONDITION:") + 10), ((auctionCell.InnerHtml.IndexOf("LOCATION:")) - (auctionCell.InnerHtml.IndexOf("CONDITION") + 10))); 
+                                int ConditionStart = auctionCell.InnerHtml.IndexOf("CONDITION:");
+
+                                int ConditionEnd = auctionCell.InnerHtml.IndexOf("LOCATION:");
+
+                                if (ConditionEnd < 0)
+                                {
+                                    ConditionEnd = auctionCell.InnerHtml.IndexOf("REMOVAL DEADLINE:");
+                                }
+
+
+                                itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring(ConditionStart + 10, ConditionEnd - (ConditionStart + 10)); 
                                 itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>  -", "");
                                 itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br> -", "");
                                 itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>-", "");
                                 itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>", "");
+                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("</b>", "");
+                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<b> -", "");
+                                
                             }
                                 break;
                         case 3:

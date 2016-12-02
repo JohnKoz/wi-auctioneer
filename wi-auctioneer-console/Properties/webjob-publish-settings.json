@@ -1,9 +1,9 @@
 ﻿{
   "$schema": "http://schemastore.org/schemas/json/webjob-publish-settings.json",
   "webJobName": "wi-auctioneer-console",
-  "startTime": null,
+  "startTime": "2016-11-29T12:00:00-06:00",
   "endTime": null,
-  "jobRecurrenceFrequency": null,
-  "interval": null,
-  "runMode": "OnDemand"
+  "jobRecurrenceFrequency": "Day",
+  "interval": 1,
+  "runMode": "Scheduled"
 }
