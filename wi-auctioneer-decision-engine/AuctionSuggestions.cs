@@ -12,6 +12,10 @@ namespace wi_auctioneer_decision_engine
         public static StringBuilder GetSuggestions(List<AuctionItem> autionItems)
         {
             StringBuilder suggestions = new StringBuilder();
+            DateTime central = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
+                    DateTime.UtcNow, "Central Standard Time");
+
+
             foreach (AuctionItem auctionItem in autionItems)
             {
                 List<string> keywords = new List<string>();
@@ -21,7 +25,7 @@ namespace wi_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 100
                     && auctionItem.NextBidRequired < 100
-                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
+                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
                     continue;
@@ -33,7 +37,7 @@ namespace wi_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 1000
                     && auctionItem.NextBidRequired < 1000
-                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
+                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
                     continue;
@@ -45,7 +49,7 @@ namespace wi_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 200
                     && auctionItem.NextBidRequired < 200
-                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
+                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
                     continue;
@@ -57,7 +61,7 @@ namespace wi_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains)
                     && auctionItem.CurrentPrice < 500
                     && auctionItem.NextBidRequired < 500
-                    && auctionItem.Auction.AuctionEndDate < DateTime.Now.AddHours(24))
+                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
                 {
                     suggestions.Append(formatAuctionItem(auctionItem));
                     continue;
