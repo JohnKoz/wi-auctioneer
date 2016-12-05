@@ -165,11 +165,15 @@ namespace wi_auctioneer_webdata
                             itemToAdd.FullDescription = auctionCell.InnerText;
                             if (itemToAdd.FullDescription.Contains("CONDITION:"))
                             {
-                                itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("CONDITION:") + 10), ((auctionCell.InnerHtml.IndexOf("LOCATION:")) - (auctionCell.InnerHtml.IndexOf("CONDITION") + 10))); 
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>  -", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br> -", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>-", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>", "");
+                                if (auctionCell.InnerHtml.Contains("LOCATION:"))
+                                {
+                                    itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring((auctionCell.InnerHtml.IndexOf("CONDITION:") + 10), ((auctionCell.InnerHtml.IndexOf("LOCATION:")) - (auctionCell.InnerHtml.IndexOf("CONDITION") + 10)));
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>  -", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br> -", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>-", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>", "");
+                                }
+
                             }
                                 break;
                         case 3:
