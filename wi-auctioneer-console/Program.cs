@@ -32,14 +32,16 @@ namespace wi_auctioneer_console
             }
 
 #if DEBUG
-            Console.WriteLine(emailBody.ToString());
+            Console.WriteLine(emailBody.ToString().Replace("<br />",""));
 #endif
 
 
             if (!String.IsNullOrEmpty(password) && emailBody.Length > 0)
             {
 #if !DEBUG
-                EmailService.SendEmail("Potential Auction Finds", "Potential auction finds:<br />" + emailBody.ToString(), password);
+                DateTime central = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
+                     DateTime.UtcNow, "Central Standard Time");
+                EmailService.SendEmail("Potential Auction Finds for " + central.ToString("d"), "Potential auction finds:<br />" + emailBody.ToString(), password);
 #endif
             }
 
