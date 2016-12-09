@@ -39,12 +39,12 @@ namespace wi_auctioneer_decision_engine
 
                 
                 keywords.Clear();
-                keywords.AddRange(new string[] { "acre", "land", "property" });
+                keywords.AddRange(new string[] { "acre", "land", "property", "acreage" , "Vacant Lot" });
 
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 1000
                     && auctionItem.NextBidRequired < 1000
-                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
+                    && auctionItem.Auction.AuctionEndDate < central.AddHours(48))
                 {
                     if (firstLand)
                     {
