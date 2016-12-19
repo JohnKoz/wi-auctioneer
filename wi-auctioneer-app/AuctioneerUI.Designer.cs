@@ -50,6 +50,7 @@ namespace wi_auctioneer_app
             this.chkIncludeEnded = new System.Windows.Forms.CheckBox();
             this.chkIncludeImages = new System.Windows.Forms.CheckBox();
             this.chkGetFirstRow = new System.Windows.Forms.CheckBox();
+            this.txtTestURL = new System.Windows.Forms.TextBox();
             this.filterCriteria = new System.Windows.Forms.GroupBox();
             this.chkMustContainAll = new System.Windows.Forms.CheckBox();
             this.txtMaxBids = new System.Windows.Forms.TextBox();
@@ -110,8 +111,7 @@ namespace wi_auctioneer_app
             this.NumberOfBids,
             this.CurrentPrice,
             this.ItemCondition,
-            this.URLColumn
-            });
+            this.URLColumn});
             this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 2);
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 103);
@@ -205,6 +205,7 @@ namespace wi_auctioneer_app
             this.flowLayoutPanel1.Controls.Add(this.chkIncludeEnded);
             this.flowLayoutPanel1.Controls.Add(this.chkIncludeImages);
             this.flowLayoutPanel1.Controls.Add(this.chkGetFirstRow);
+            this.flowLayoutPanel1.Controls.Add(this.txtTestURL);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -253,6 +254,13 @@ namespace wi_auctioneer_app
             this.chkGetFirstRow.TabIndex = 8;
             this.chkGetFirstRow.Text = "Get First Row (Test)";
             this.chkGetFirstRow.UseVisualStyleBackColor = true;
+            // 
+            // txtTestURL
+            // 
+            this.txtTestURL.Location = new System.Drawing.Point(472, 3);
+            this.txtTestURL.Name = "txtTestURL";
+            this.txtTestURL.Size = new System.Drawing.Size(100, 20);
+            this.txtTestURL.TabIndex = 9;
             // 
             // filterCriteria
             // 
@@ -382,6 +390,7 @@ namespace wi_auctioneer_app
             this.ItemCondition.HeaderText = "Item Condition";
             this.ItemCondition.Name = "ItemCondition";
             this.ItemCondition.ReadOnly = true;
+            this.ItemCondition.Width = 91;
             // 
             // toolStripProgressBar1
             // 

@@ -79,8 +79,6 @@ namespace wi_auctioneer_webdata
 
                 auctionEndDate = auctionEndDate.Replace("-", "");
 
-                //foreach (HAP.HtmlNode auctionTitle in auctionTitles)
-                //{
                 if (includeEnded || !auctionTitle.Contains("CLOSED"))
                     {
                         Auction auctionToAdd;
@@ -121,18 +119,26 @@ namespace wi_auctioneer_webdata
         public static IEnumerable<AuctionItem> GetAuctionItemsByName(Auction auction, bool includeImages)
         {
             string auctionURL;
-            int auctionNumber;
+            string auctionNumber;
             List<AuctionItem> auctionItems = new List<AuctionItem>();
 
-            auctionNumber = int.Parse(auction.AuctionName.Substring(7, 2));
-
-
-            System.Convert.ToString(auctionNumber);
+            //auctionNumber = int.Parse(auction.AuctionName.Substring(7, 2));
+            auctionNumber = (System.Convert.ToString(auction.AuctionName.Substring(7, 3))).Trim();
+            auctionNumber.Replace(".", "");
             if (System.Convert.ToString(auctionNumber).Contains("-"))
+            {
+                auctionNumber = auction.AuctionName.Substring(8, 2);
+            }
+            //Added below foreach loop because we get an error when a single digit auction number is used in the url. This is prefaced with a Zero (ex:03)
+            foreach (char auctionnumberCount in auctionNumber)
+            {
+                if (System.Convert.ToString(auctionNumber).StartsWith("0"))
                 {
-                auctionNumber = int.Parse(auction.AuctionName.Substring(8, 2));
+                    auctionNumber = auctionNumber.Remove(0, 1);
+                }
             }
 
+            auctionNumber = auctionNumber.Replace(".", "");
             auctionURL = String.Format("http://www.maxanet.com/cgi-bin/mnlist.cgi?rlust{0}/category/ALL", auctionNumber);
 
             var doc = new HAP.HtmlDocument();
