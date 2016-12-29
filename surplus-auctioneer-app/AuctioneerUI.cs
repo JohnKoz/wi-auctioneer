@@ -39,8 +39,12 @@ namespace surplus_auctioneer_app
             try
             {
                 if (!chkGetFirstRow.Checked)
-                    {
-                    List<Auction> auctions = SurplusAuctionData.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
+                {
+                    //TODO: Add a loop here to get ALL auction data classes
+                    ISurplusAuctionData auctionData;
+                    auctionData = new WisconsinAuctionData();
+
+                    List<Auction> auctions = auctionData.GetAllAuctions(chkIncludeImages.Checked, chkIncludeEnded.Checked, backgroundWorker1).ToList();
                     foreach (Auction auction in auctions)
                     {
                         foreach (AuctionItem item in auction.AuctionItems)

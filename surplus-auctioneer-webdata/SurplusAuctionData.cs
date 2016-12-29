@@ -13,11 +13,11 @@ using HAP = HtmlAgilityPack;
 
 namespace surplus_auctioneer_webdata
 {
-    public static class SurplusAuctionData
+    public class WisconsinAuctionData : ISurplusAuctionData
     {
         private static Regex digitsOnly = new Regex(@"[^\d]");
 
-        public static IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded, BackgroundWorker bw)
+        public IEnumerable<Auction> GetAllAuctions(bool includeImages, bool includeEnded, BackgroundWorker bw)
         {
             List<Auction> auctions = new List<Auction>();
             var doc = new HAP.HtmlDocument();
@@ -116,7 +116,7 @@ namespace surplus_auctioneer_webdata
             return auctions;
         }
 
-        public static IEnumerable<AuctionItem> GetAuctionItemsByName(Auction auction, bool includeImages)
+        public IEnumerable<AuctionItem> GetAuctionItemsByName(Auction auction, bool includeImages)
         {
             string auctionURL;
             string auctionNumber;

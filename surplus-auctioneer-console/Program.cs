@@ -13,7 +13,11 @@ namespace surplus_auctioneer_console
     {
         static void Main(string[] args)
         {
-            var auctions = SurplusAuctionData.GetAllAuctions(false, false, null);
+            ISurplusAuctionData auctionData;
+
+            auctionData = new WisconsinAuctionData();
+
+            var auctions = auctionData.GetAllAuctions(false, false, null);
             StringBuilder emailBody = new StringBuilder();
             string password = "";
 
