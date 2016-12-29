@@ -22,11 +22,11 @@ namespace surplus_auctioneer_console
                 mySmtpClient.EnableSsl = true;
 
                 mySmtpClient.UseDefaultCredentials = false;
-                NetworkCredential basicAuthenticationInfo = new NetworkCredential("wi.auctioneer", password);
+                NetworkCredential basicAuthenticationInfo = new NetworkCredential("surplus.auctioneer.notify", password);
                 mySmtpClient.Credentials = basicAuthenticationInfo;
 
                 // add from,to mailaddresses
-                MailAddress from = new MailAddress("wi.auctioneer@gmail.com", "Surplus Auctioneer");
+                MailAddress from = new MailAddress("surplus.auctioneer.notify@gmail.com", "Surplus Auctioneer");
                 MailAddress toNick = new MailAddress("nick.heidke@gmail.com", "Nick Heidke");
                 MailAddress toJohn = new MailAddress("john.s.kozlowski@gmail.com", "John Koz");
                 MailMessage myMail = new MailMessage();
