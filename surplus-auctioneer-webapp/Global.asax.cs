@@ -23,7 +23,7 @@ namespace surplus_auctioneer_webapp
 
             HttpRuntime.Cache.Insert(
           /* key */                "auctionData",
-          /* value */              wiData.GetAllAuctions(true, false, null),
+          /* value */              wiData.GetAllAuctions(false, false, null),
           /* dependencies */       null,
           /* absoluteExpiration */ Cache.NoAbsoluteExpiration,
           /* slidingExpiration */  new TimeSpan(0,4,0,0), //Expire cache after 4 hours
