@@ -48,13 +48,21 @@ namespace surplus_auctioneer_webapp.Controllers
         {
             ViewBag.Message = "Search Results";
 
-            var auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+            var auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
 
             model.AuctionItems = new List<AuctionItem>();
 
             foreach (Auction a in auctions)
             {
-                model.AuctionItems = model.AuctionItems.Concat(a.AuctionItems.Where(x => x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice));
+                model.AuctionItems =
+                    model.AuctionItems.Concat(
+                        a.AuctionItems.Where(x => x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice));
+            }
+
+            if (model.Keywords.Length > 0)
+            {
+                string[] items = model.Keywords.Split(',');
+                model.AuctionItems = model.AuctionItems.Where(x => items.Any(x.FullDescription.Contains));
             }
 
             return View(model);
