@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-console"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-decision-engine", "surplus-auctioneer-decision-engine\surplus-decision-engine.csproj", "{1759D339-6109-41A6-876B-0229880B9D5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-webapp", "surplus-auctioneer-webapp\surplus-auctioneer-webapp.csproj", "{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1759D339-6109-41A6-876B-0229880B9D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1759D339-6109-41A6-876B-0229880B9D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1759D339-6109-41A6-876B-0229880B9D5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
