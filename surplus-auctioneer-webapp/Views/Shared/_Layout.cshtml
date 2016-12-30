@@ -19,6 +19,10 @@
         window.appInsights=appInsights;
         appInsights.trackPageView();
     </script>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/my-js")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +39,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Auctions", "Auctions", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Search", "Search", "Home")</li>
                 </ul>
                 <!--Comment this line out so that login isn't available
                     @Html.Partial("_LoginPartial")-->
@@ -49,9 +53,6 @@
             <p>&copy; @DateTime.Now.Year - Surplus Auctioneer</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

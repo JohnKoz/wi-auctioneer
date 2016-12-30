@@ -1,0 +1,45 @@
+﻿@using surplus_auctioneer_models
+@model surplus_auctioneer_webapp.Models.SearchViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<script>
+    $(document).ready(function () {
+        my.Views.Search.init();
+    })
+</script>
+
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<form action="~/Home/Search" method="post">
+    <label>Min Price:</label><input type="text" name="MinPrice" />
+    <label>Max Price:</label><input type="text" name="MaxPrice" />
+    <input type="submit" class="btn btn-default" />
+</form>
+
+@if (Model.AuctionItems.Any())
+{
+    <table id="searchResults" class="tablesorter">
+        <thead>
+        <tr>
+            <th>Short Description</th>
+            <th style="width: 100px">Current Price</th>
+            <th style="width: 125px">Next Required<br />Bid Amount</th>
+            <th>Number of Bids</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (AuctionItem item in Model.AuctionItems)
+            {
+                <tr>
+                    <td><a target="_blank" href="@item.AuctionItemURL">@item.ShortDescription</a></td>
+                    <td>@item.CurrentPrice.ToString("C")</td>
+                    <td>@item.NextBidRequired.ToString("C")</td>
+                    <td>@item.NumberOfBids</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

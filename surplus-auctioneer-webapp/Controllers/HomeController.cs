@@ -32,11 +32,32 @@ namespace surplus_auctioneer_webapp.Controllers
             return View(model);
         }
 
-        public ActionResult Contact()
+        public ActionResult Search()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Search for auction items here";
 
-            return View();
+            SearchViewModel model = new SearchViewModel();
+
+            model.AuctionItems = new List<AuctionItem>();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Search(SearchViewModel model)
+        {
+            ViewBag.Message = "Search Results";
+
+            var auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+
+            model.AuctionItems = new List<AuctionItem>();
+
+            foreach (Auction a in auctions)
+            {
+                model.AuctionItems = model.AuctionItems.Concat(a.AuctionItems.Where(x => x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice));
+            }
+
+            return View(model);
         }
     }
 }
