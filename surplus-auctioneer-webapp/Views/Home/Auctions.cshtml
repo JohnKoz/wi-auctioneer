@@ -1,0 +1,16 @@
+﻿@using surplus_auctioneer_models
+@using surplus_auctioneer_webapp.Models
+@{
+    ViewBag.Title = "Auctions";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<h4>Wisconsin</h4>
+
+@foreach (Auction auction in Model.Auctions)
+{
+     <p>
+         @auction.AuctionName
+     </p>
+ }

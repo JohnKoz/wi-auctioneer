@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using surplus_auctioneer_webdata;
 
 namespace surplus_auctioneer_webapp
 {
@@ -16,6 +18,18 @@ namespace surplus_auctioneer_webapp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ISurplusAuctionData wiData = new WisconsinAuctionData();
+
+            HttpRuntime.Cache.Insert(
+          /* key */                "auctionData",
+          /* value */              wiData.GetAllAuctions(true, false, null),
+          /* dependencies */       null,
+          /* absoluteExpiration */ Cache.NoAbsoluteExpiration,
+          /* slidingExpiration */  new TimeSpan(0,4,0,0), //Expire cache after 4 hours
+          /* priority */           CacheItemPriority.NotRemovable,
+          /* onRemoveCallback */   null);
+
         }
     }
 }
