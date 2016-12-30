@@ -24,6 +24,10 @@ namespace surplus_auctioneer_webapp.Controllers
 
             model.Auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
 
+            if (model.Auctions == null)
+            {
+                throw new ApplicationException("No auctions found");
+            }
 
             return View(model);
         }
