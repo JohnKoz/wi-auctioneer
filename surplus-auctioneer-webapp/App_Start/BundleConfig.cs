@@ -12,6 +12,9 @@ namespace surplus_auctioneer_webapp
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.tablesorter.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerytablesorter").Include(
+                        "~/Scripts/jquery.tablesorter.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
