@@ -8,6 +8,8 @@ namespace surplus_auctioneer_models
 {
     public class Auction : System.Object
     {
+        public string AuctionSource { get; set; }
+
         public int AuctionID { get; set; }
 
         public string AuctionName { get; set; }

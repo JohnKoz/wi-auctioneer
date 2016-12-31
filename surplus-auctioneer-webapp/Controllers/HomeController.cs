@@ -56,13 +56,13 @@ namespace surplus_auctioneer_webapp.Controllers
             {
                 model.AuctionItems =
                     model.AuctionItems.Concat(
-                        a.AuctionItems.Where(x => x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice));
+                        a.AuctionItems.Where(x => (x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice) || x.CurrentPrice == 0));
             }
 
-            if (model.Keywords.Length > 0)
+            if (!string.IsNullOrEmpty(model.Keywords) && model.Keywords.Length > 0)
             {
                 string[] items = model.Keywords.Split(',');
-                model.AuctionItems = model.AuctionItems.Where(x => items.Any(x.FullDescription.Contains));
+                model.AuctionItems = model.AuctionItems.Where(x => (x.ShortDescription != null && items.Any(x.ShortDescription.Contains)) || (x.FullDescription != null && items.Any(x.FullDescription.Contains)));
             }
 
             return View(model);

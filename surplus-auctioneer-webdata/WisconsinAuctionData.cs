@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using surplus_auctioneer_models;
+using wi_auctioneer_webdata;
 using HAP = HtmlAgilityPack;
 
 namespace surplus_auctioneer_webdata
@@ -85,6 +82,8 @@ namespace surplus_auctioneer_webdata
 
                         auctionToAdd = new Auction();
 
+                        auctionToAdd.AuctionSource = "Wisconsin";
+
                         auctionToAdd.AuctionEnd = auctionEnd;
 
                         auctionToAdd.AuctionEndDate = DateTime.Parse(auctionEndDate);
@@ -116,7 +115,7 @@ namespace surplus_auctioneer_webdata
             return auctions;
         }
 
-        public IEnumerable<AuctionItem> GetAuctionItemsByName(Auction auction, bool includeImages)
+        private IEnumerable<AuctionItem> GetAuctionItemsByName(Auction auction, bool includeImages)
         {
             string auctionURL;
             string auctionNumber;
@@ -165,7 +164,7 @@ namespace surplus_auctioneer_webdata
                         case 1:
 
                             if (includeImages)
-                                itemToAdd.Picture = GetImageFromURL(auctionCell.LastChild.LastChild.Attributes[1].Value);
+                                itemToAdd.Picture = Helpers.GetImageFromURL(auctionCell.LastChild.LastChild.Attributes[1].Value);
                             break;
                         case 2:
                             itemToAdd.FullDescription = auctionCell.InnerText;
@@ -213,24 +212,6 @@ namespace surplus_auctioneer_webdata
             return auctionItems;
         }
 
-        private static Image GetImageFromURL(string url)
-        {
-            if (url.ToLower().Contains("none"))
-                return null;
-
-            Image img;
-            try
-            {
-                WebClient wc = new WebClient();
-                byte[] bytes = wc.DownloadData(url);
-                MemoryStream ms = new MemoryStream(bytes);
-                img = System.Drawing.Image.FromStream(ms);
-            }
-            catch
-            {
-                return null;
-            }
-            return img;
-        }
+       
     }
 }

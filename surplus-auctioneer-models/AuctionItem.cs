@@ -44,5 +44,7 @@ namespace surplus_auctioneer_models
         public double NextBidRequired { get; set; }
 
         public string ItemCondition { get; set; }
+
+        public string AuctionCategory { get; set; }
     }
 }
