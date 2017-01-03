@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -101,7 +102,17 @@ namespace surplus_auctioneer_webdata
                                     elemCount++;
                                     continue;
                                 case 3:
-                                    auctionItem.ShortDescription = auctionItemElems.InnerText.Trim();
+                                    auctionItem.ShortDescription = WebUtility.HtmlDecode(auctionItemElems.InnerText.Trim());
+                                    break;
+                                case 4:
+                                    break;
+                                case 5:
+                                    auctionItem.CurrentPrice = double.Parse(auctionItemElems.InnerText.Trim().Replace("$ ",""));
+                                    break;
+                                case 6:
+                                    break;
+                                case 7:
+                                    auctionItem.NumberOfBids = int.Parse(auctionItemElems.InnerText.Trim());
                                     break;
                             }
 

@@ -27,34 +27,45 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Surplus Auctioneer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Auctions", "Auctions", "Home")</li>
-                    <li>@Html.ActionLink("Search", "Search", "Home")</li>
-                </ul>
-                <!--Comment this line out so that login isn't available
-                    @Html.Partial("_LoginPartial")-->
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Surplus Auctioneer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Auctions", "Auctions", "Home")</li>
+                <li>@Html.ActionLink("Search", "Search", "Home")</li>
+            </ul>
+            <!--Comment this line out so that login isn't available
+            @Html.Partial("_LoginPartial")-->
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Surplus Auctioneer</p>
-        </footer>
-    </div>
+</div>
+<div style="height:100px">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Surplus-Auctioneer-LeaderboardV2 -->
+    <ins class="adsbygoogle"
+            style="display:inline-block;width:728px;height:90px"
+            data-ad-client="ca-pub-8101683365831864"
+            data-ad-slot="4090146192"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Surplus Auctioneer</p>
+    </footer>
+</div>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -10,7 +10,22 @@
 
 @foreach (Auction auction in Model.Auctions)
 {
-     <p>
-         @auction.AuctionName
-     </p>
- }
+    if (auction.AuctionSource == "Wisconsin")
+    {
+        <p>
+            @auction.AuctionName
+        </p>
+    }
+}
+
+<h4>Illinois</h4>
+
+@foreach (Auction auction in Model.Auctions)
+{
+    if (auction.AuctionSource == "Illinois")
+    {
+        <p>
+            @auction.AuctionName
+        </p>
+    }
+}
