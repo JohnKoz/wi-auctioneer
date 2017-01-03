@@ -13,6 +13,7 @@ namespace surplus_auctioneer_webapp
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        IEnumerable<Auction> allAuctions;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -20,8 +21,12 @@ namespace surplus_auctioneer_webapp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            IEnumerable<Auction> allAuctions;
+            LoadCache("auctionData", null, CacheItemRemovedReason.Expired);
 
+        }
+
+        private void LoadCache(string key, object value, CacheItemRemovedReason reason)
+        {
             ISurplusAuctionData wiData = new WisconsinAuctionData();
 
             allAuctions = wiData.GetAllAuctions(false, false, null);
@@ -30,15 +35,20 @@ namespace surplus_auctioneer_webapp
 
             allAuctions = allAuctions.Concat(ilData.GetAllAuctions(false, false, null)).ToList<Auction>();
 
-            HttpRuntime.Cache.Insert(
-          /* key */                "auctionData",
-          /* value */              allAuctions,
-          /* dependencies */       null,
-          /* absoluteExpiration */ Cache.NoAbsoluteExpiration,
-          /* slidingExpiration */  new TimeSpan(0,4,0,0), //Expire cache after 4 hours
-          /* priority */           CacheItemPriority.NotRemovable,
-          /* onRemoveCallback */   null);
+            if (HttpRuntime.Cache[key] != null)
+            {
 
+            HttpRuntime.Cache.Remove(key);
+            }
+
+            HttpRuntime.Cache.Insert(
+              /* key */                key,
+              /* value */              allAuctions,
+              /* dependencies */       null,
+              /* absoluteExpiration */ Cache.NoAbsoluteExpiration,
+              /* slidingExpiration */  new TimeSpan(0, 4, 0, 0), //Expire cache after 4 hours
+                                                                 /* priority */           CacheItemPriority.NotRemovable,
+              /* onRemoveCallback */   LoadCache);
         }
     }
 }
