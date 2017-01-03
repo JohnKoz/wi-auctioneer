@@ -46,26 +46,41 @@ namespace surplus_auctioneer_webapp.Controllers
         [HttpPost]
         public ActionResult Search(SearchViewModel model)
         {
-            ViewBag.Message = "Search Results";
-
-            var auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
-
-            model.AuctionItems = new List<AuctionItem>();
-
-            foreach (Auction a in auctions)
+            if (ModelState.IsValid)
             {
-                model.AuctionItems =
-                    model.AuctionItems.Concat(
-                        a.AuctionItems.Where(x => (x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice) || x.CurrentPrice == 0));
-            }
+                ViewBag.Message = "Search Results";
 
-            if (!string.IsNullOrEmpty(model.Keywords) && model.Keywords.Length > 0)
-            {
-                string[] items = model.Keywords.Split(',');
-                model.AuctionItems = model.AuctionItems.Where(x => (x.ShortDescription != null && items.Any(x.ShortDescription.Contains)) || (x.FullDescription != null && items.Any(x.FullDescription.Contains)));
+                var auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
+
+                model.AuctionItems = new List<AuctionItem>();
+
+                foreach (Auction a in auctions)
+                {
+                    model.AuctionItems =
+                        model.AuctionItems.Concat(
+                            a.AuctionItems.Where(
+                                x =>
+                                    (x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice)));
+                }
+
+                if (!string.IsNullOrEmpty(model.Keywords) && model.Keywords.Length > 0)
+                {
+                    string[] items = model.Keywords.ToLower().Split(',');
+                    model.AuctionItems =
+                        model.AuctionItems.Where(
+                            x =>
+                                (x.ShortDescription != null && items.Any(x.ShortDescription.ToLower().Contains)) ||
+                                (x.FullDescription != null && items.Any(x.FullDescription.ToLower().Contains)));
+                }
+
+                if (!model.AuctionItems.Any())
+                {
+                    model.ErrorMessage = "No Results Found";
+                }
             }
 
             return View(model);
+            
         }
     }
 }

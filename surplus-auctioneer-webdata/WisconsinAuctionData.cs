@@ -206,7 +206,11 @@ namespace surplus_auctioneer_webdata
                 itemToAdd.AuctionName = auction.AuctionName;
                 itemToAdd.Auction = auction;
 
-                auctionItems.Add(itemToAdd);
+                //Try to prevent practice items from being added
+                if (!itemToAdd.FullDescription.Contains("Practice your bidding on this item"))
+                {
+                    auctionItems.Add(itemToAdd);
+                }
             }
 
             return auctionItems;

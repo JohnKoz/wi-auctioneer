@@ -29,9 +29,9 @@ namespace surplus_auctioneer_models
                 _fulldescription = value;
                 if (_fulldescription.Substring(0, _fulldescription.Length).Contains("+/-"))
                 {
-                    _fulldescription = _fulldescription.Replace("+/-", "");
+                    _fulldescription = _fulldescription.Replace("+/-", "").Trim();
                 }
-                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-'));
+                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-')).Trim();
 
             }
         }
