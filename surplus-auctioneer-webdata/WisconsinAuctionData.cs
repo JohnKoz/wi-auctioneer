@@ -192,7 +192,14 @@ namespace surplus_auctioneer_webdata
                                 itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<b> -", "");
                                 
                             }
-                                break;
+
+                            if (itemToAdd.FullDescription.Substring(0, itemToAdd.FullDescription.Length).Contains("+/-"))
+                            {
+                                itemToAdd.FullDescription = itemToAdd.FullDescription.Replace("+/-", "").Trim();
+                            }
+
+                            itemToAdd.ShortDescription = itemToAdd.FullDescription.Substring(0, itemToAdd.FullDescription.IndexOf('-') == -1 ? itemToAdd.FullDescription.Length : itemToAdd.FullDescription.IndexOf('-')).Trim();
+                            break;
                         case 3:
                             itemToAdd.NumberOfBids = int.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));
                             break;

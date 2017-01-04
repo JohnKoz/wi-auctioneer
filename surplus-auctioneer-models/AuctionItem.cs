@@ -9,8 +9,6 @@ namespace surplus_auctioneer_models
 {
     public class AuctionItem
     {
-        private string _fulldescription;
-
         public int ID { get; set; }
 
         public Image Picture { get; set; }
@@ -21,20 +19,8 @@ namespace surplus_auctioneer_models
 
         public Auction Auction { get; set; }
 
-        public string FullDescription
-        {
-            get { return _fulldescription; }
-            set
-            {
-                _fulldescription = value;
-                if (_fulldescription.Substring(0, _fulldescription.Length).Contains("+/-"))
-                {
-                    _fulldescription = _fulldescription.Replace("+/-", "").Trim();
-                }
-                ShortDescription = _fulldescription.Substring(0, _fulldescription.IndexOf('-') == -1 ? _fulldescription.Length : _fulldescription.IndexOf('-')).Trim();
+        public string FullDescription { get; set; }
 
-            }
-        }
         public string AuctionItemURL { get; set; }
 
         public int NumberOfBids { get; set; }
