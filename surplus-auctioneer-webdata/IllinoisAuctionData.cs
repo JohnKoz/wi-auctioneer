@@ -127,6 +127,8 @@ namespace surplus_auctioneer_webdata
                             elemCount++;
                         }
 
+                        auctionItem.Auction = auction;
+
                         if (auctionItem.CurrentPrice != 0 &&
                             auctionItem.ShortDescription != null)
                         {
