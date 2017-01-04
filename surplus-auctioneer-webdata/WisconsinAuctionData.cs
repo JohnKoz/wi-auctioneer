@@ -22,15 +22,19 @@ namespace surplus_auctioneer_webdata
 
             bw?.ReportProgress(0, "Retrieving auction list");
 
-            doc.LoadHtml(new WebClient().DownloadString("http://www.maxanet.com/cgi-bin/mncal.cgi?rlust"));
+            //System.Net.ServicePointManager.Expect100Continue = false;
+
+            WebClient webClient = new WebClient();
+
+            webClient.UseDefaultCredentials = true;
+
+            doc.LoadHtml(webClient.DownloadString("http://www.maxanet.com/cgi-bin/mncal.cgi?rlust"));
 
             bw?.ReportProgress(10, "Auction list retrieved, starting auction loads");
 
             var root = doc.DocumentNode;
 
             var auctionNodes = root.SelectNodes("//table");
-
-
 
             //var auctionTitles = root.Descendants().Where(n => n.GetAttributeValue("id", "").Equals("auction_title"));
 

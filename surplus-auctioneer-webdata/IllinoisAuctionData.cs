@@ -49,30 +49,13 @@ namespace surplus_auctioneer_webdata
 
                 bw?.ReportProgress(percentage, "Loading " + item.Value);
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://ibid.illinois.gov/browse.php?id=" + item.Key);
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                System.Net.ServicePointManager.Expect100Continue = false;
 
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    Stream receiveStream = response.GetResponseStream();
-                    StreamReader readStream = null;
+                WebClient webClient = new WebClient();
 
-                    if (response.CharacterSet == null)
-                    {
-                        readStream = new StreamReader(receiveStream);
-                    }
-                    else
-                    {
-                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                    }
+                webClient.UseDefaultCredentials = true;
 
-                    string data = readStream.ReadToEnd();
-
-                    response.Close();
-                    readStream.Close();
-
-                    doc.LoadHtml(data);
-                }
+                doc.LoadHtml(webClient.DownloadString("https://ibid.illinois.gov/browse.php?id=" + item.Key));
 
                 var root = doc.DocumentNode;
 
