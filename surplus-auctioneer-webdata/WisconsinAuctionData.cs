@@ -209,7 +209,11 @@ namespace surplus_auctioneer_webdata
                 //Try to prevent practice items from being added
                 if (!itemToAdd.FullDescription.Contains("Practice your bidding on this item"))
                 {
-                    auctionItems.Add(itemToAdd);
+                    //NextBidRequired == 0 generally means 'WITHDRAWN' so we don't include it
+                    if (itemToAdd.NextBidRequired != 0)
+                    {
+                        auctionItems.Add(itemToAdd);
+                    }
                 }
             }
 

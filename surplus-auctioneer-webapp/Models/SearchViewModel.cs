@@ -13,6 +13,7 @@ namespace surplus_auctioneer_webapp.Models
         public SearchViewModel()
         {
             MinPrice = 0;
+            MaxPrice = 1000;
         }
 
         [RegularExpression("([0-9]+)", ErrorMessage =  "Max Price must be a positive number")]
@@ -25,7 +26,7 @@ namespace surplus_auctioneer_webapp.Models
         [DataType(DataType.MultilineText)]
         public string Keywords { get; set; }
 
-        public IEnumerable<AuctionItem> AuctionItems { get; set; }
+        public List<AuctionItem> AuctionItems { get; set; }
 
         public string ErrorMessage { get; set; }
     }

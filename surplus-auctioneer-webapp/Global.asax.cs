@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using surplus_auctioneer_models;
+using surplus_auctioneer_webapp.Helpers;
 using surplus_auctioneer_webdata;
 
 namespace surplus_auctioneer_webapp
@@ -27,13 +28,7 @@ namespace surplus_auctioneer_webapp
 
         private void LoadCache(string key, object value, CacheItemRemovedReason reason)
         {
-            ISurplusAuctionData wiData = new WisconsinAuctionData();
-
-            allAuctions = wiData.GetAllAuctions(false, false, null);
-
-            ISurplusAuctionData ilData = new IllinoisAuctionData();
-
-            allAuctions = allAuctions.Concat(ilData.GetAllAuctions(false, false, null)).ToList<Auction>();
+            allAuctions = Tools.GetAllAuctions();
 
             if (HttpRuntime.Cache[key] != null)
             {

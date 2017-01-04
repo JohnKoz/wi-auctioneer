@@ -64,7 +64,7 @@
         @foreach (AuctionItem item in Model.AuctionItems)
         {
             <tr>
-                <td><a target="_blank" href="@item.AuctionItemURL">@Truncate(string.IsNullOrEmpty(item.ShortDescription) ? item.FullDescription : item.ShortDescription, 100)</a></td>
+                <td><a target="_blank" href="@item.AuctionItemURL" title="@item.FullDescription">@Truncate(string.IsNullOrEmpty(item.ShortDescription) ? item.FullDescription : item.ShortDescription, 100)</a></td>
                 <td>@item.CurrentPrice.ToString("C")</td>
                 <td>@item.NextBidRequired.ToString("C")</td>
                 <td>@item.NumberOfBids</td>

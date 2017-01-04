@@ -108,6 +108,14 @@ namespace surplus_auctioneer_webdata
                                     break;
                                 case 5:
                                     auctionItem.CurrentPrice = double.Parse(auctionItemElems.InnerText.Trim().Replace("$ ",""));
+                                    if (auctionItem.CurrentPrice == 0)
+                                    {
+                                        auctionItem.NextBidRequired = auctionItem.CurrentPrice;
+                                    }
+                                    else
+                                    {
+                                        auctionItem.NextBidRequired = auctionItem.CurrentPrice + 0.01;
+                                    }
                                     break;
                                 case 6:
                                     break;
@@ -119,7 +127,12 @@ namespace surplus_auctioneer_webdata
                             elemCount++;
                         }
 
-                        auctionItems.Add(auctionItem);
+                        if (auctionItem.CurrentPrice != 0 &&
+                            auctionItem.ShortDescription != null)
+                        {
+                            auctionItems.Add(auctionItem);
+                        }
+
                         nodeCounter++;
                     }
 

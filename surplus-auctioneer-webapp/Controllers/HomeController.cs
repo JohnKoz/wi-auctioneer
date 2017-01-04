@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using surplus_auctioneer_models;
+using surplus_auctioneer_webapp.Helpers;
 using surplus_auctioneer_webapp.Models;
+using WebGrease.Css.Extensions;
 
 namespace surplus_auctioneer_webapp.Controllers
 {
@@ -50,27 +52,29 @@ namespace surplus_auctioneer_webapp.Controllers
             {
                 ViewBag.Message = "Search Results";
 
-                var auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
+                List<Auction> auctions;
 
+                //If we're in DEBUG, don't use the cache, go out and get the results
+#if DEBUG
+                auctions = Tools.GetAllAuctions();
+#else
+                auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
+#endif
                 model.AuctionItems = new List<AuctionItem>();
 
                 foreach (Auction a in auctions)
                 {
-                    model.AuctionItems =
-                        model.AuctionItems.Concat(
-                            a.AuctionItems.Where(
-                                x =>
-                                    (x.CurrentPrice >= model.MinPrice && x.CurrentPrice <= model.MaxPrice)));
+                    a.AuctionItems.Where(x =>
+                                    (x.NextBidRequired >= model.MinPrice && x.NextBidRequired <= model.MaxPrice)).ForEach(model.AuctionItems.Add);
                 }
 
                 if (!string.IsNullOrEmpty(model.Keywords) && model.Keywords.Length > 0)
                 {
                     string[] items = model.Keywords.ToLower().Split(',');
-                    model.AuctionItems =
-                        model.AuctionItems.Where(
+                    model.AuctionItems = model.AuctionItems.Where(
                             x =>
                                 (x.ShortDescription != null && items.Any(x.ShortDescription.ToLower().Contains)) ||
-                                (x.FullDescription != null && items.Any(x.FullDescription.ToLower().Contains)));
+                                (x.FullDescription != null && items.Any(x.FullDescription.ToLower().Contains))).ToList();
                 }
 
                 if (!model.AuctionItems.Any())

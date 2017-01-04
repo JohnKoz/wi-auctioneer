@@ -8,14 +8,14 @@ using surplus_auctioneer_webdata;
 namespace surplus_auctioneer_webdata_tests
 {
     [TestClass]
-    public class IllinoisAuctionDataTests
+    public class WisconsinAuctionDataTests
     {
         [TestMethod]
         public void TestGetAllAuctionsForAnyResult()
         {
-            ISurplusAuctionData illinoisAuctionData = new IllinoisAuctionData();
+            ISurplusAuctionData wiSurplusAuctionData = new WisconsinAuctionData();
 
-            IEnumerable<Auction> auctions = illinoisAuctionData.GetAllAuctions(false, false, null);
+            IEnumerable<Auction> auctions = wiSurplusAuctionData.GetAllAuctions(false, false, null);
 
             Assert.IsTrue(auctions.Any());
         }
