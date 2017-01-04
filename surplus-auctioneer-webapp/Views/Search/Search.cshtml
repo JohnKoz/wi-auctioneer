@@ -29,7 +29,7 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<form action="~/Home/Search" method="post" class="form-vertical">
+<form action="@Url.Action("Search", "Search")" method="post" class="form-vertical">
     <div class="form-group">
         @Html.LabelFor(model => model.MinPrice)
         @Html.EditorFor(model => model.MinPrice, new { @class = "form-control" })

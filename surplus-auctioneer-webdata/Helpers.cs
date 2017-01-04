@@ -55,6 +55,11 @@ namespace surplus_auctioneer_webdata
 
             HttpWebRequest request =
                 (HttpWebRequest) WebRequest.Create(url);
+
+            request.UseDefaultCredentials = true;
+            request.AllowAutoRedirect = true;
+            request.Method = "GET";
+
             HttpWebResponse response = (HttpWebResponse) request.GetResponse();
             string data = "";
 
@@ -76,6 +81,9 @@ namespace surplus_auctioneer_webdata
 
                 response.Close();
                 readStream.Close();
+
+                response.Dispose();
+                readStream.Dispose();
             }
 
             return data;
