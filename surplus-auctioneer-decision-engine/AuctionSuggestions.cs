@@ -26,7 +26,7 @@ namespace surplus_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 100
                     && auctionItem.NextBidRequired < 100
-                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
+                    && (auctionItem.EndDateTime == DateTime.MinValue ? auctionItem.Auction.AuctionEndDate : auctionItem.EndDateTime) < central.AddHours(24))
                 {
                     if (firstTool)
                     {
@@ -44,7 +44,7 @@ namespace surplus_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 1000
                     && auctionItem.NextBidRequired < 1000
-                    && auctionItem.Auction.AuctionEndDate < central.AddHours(48))
+                    && (auctionItem.EndDateTime == DateTime.MinValue ? auctionItem.Auction.AuctionEndDate : auctionItem.EndDateTime) < central.AddHours(48))
                 {
                     if (firstLand)
                     {
@@ -62,7 +62,7 @@ namespace surplus_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains) 
                     && auctionItem.CurrentPrice < 200
                     && auctionItem.NextBidRequired < 200
-                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
+                    && (auctionItem.EndDateTime == DateTime.MinValue ? auctionItem.Auction.AuctionEndDate : auctionItem.EndDateTime) < central.AddHours(24))
                 {
                     if (firstTech)
                     {
@@ -80,7 +80,7 @@ namespace surplus_auctioneer_decision_engine
                 if (keywords.Any(auctionItem.FullDescription.ToLower().Contains)
                     && auctionItem.CurrentPrice < 500
                     && auctionItem.NextBidRequired < 500
-                    && auctionItem.Auction.AuctionEndDate < central.AddHours(24))
+                    && (auctionItem.EndDateTime == DateTime.MinValue ? auctionItem.Auction.AuctionEndDate : auctionItem.EndDateTime) < central.AddHours(24))
                 {
                     if (firstCar)
                     {

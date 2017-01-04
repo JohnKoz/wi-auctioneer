@@ -59,6 +59,7 @@
             <th style="width: 100px">Current Price</th>
             <th style="width: 125px">Next Required<br/>Bid Amount</th>
             <th>Number of Bids</th>
+            <th>Auction End</th>
         </tr>
         </thead>
         <tbody>
@@ -70,6 +71,7 @@
                 <td>@item.CurrentPrice.ToString("C")</td>
                 <td>@item.NextBidRequired.ToString("C")</td>
                 <td>@item.NumberOfBids</td>
+                <td>@(item.EndDateTime != DateTime.MinValue ? item.EndDateTime : item.Auction.AuctionEndDate)</td>
             </tr>
         }
         </tbody>

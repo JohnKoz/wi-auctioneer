@@ -89,7 +89,17 @@ namespace surplus_auctioneer_webdata
                                         auctionItem.ShortDescription =
                                             WebUtility.HtmlDecode(auctionItemElems.InnerText.Trim());
                                         //TODO: Extract a proper full description for Illinois auctions
-                                        auctionItem.FullDescription = auctionItem.ShortDescription;
+                                        if (auctionItem.ShortDescription != null)
+                                        {
+                                            auctionItem.FullDescription = auctionItem.ShortDescription;
+                                            auctionItem.ID =
+                                                int.Parse(
+                                                    auctionItem.FullDescription.Substring(0,
+                                                        auctionItem.FullDescription.IndexOf('-') == -1
+                                                            ? auctionItem.FullDescription.Length
+                                                            : auctionItem.FullDescription.IndexOf('-')).Trim());
+                                            auctionItem.AuctionItemURL = "https://ibid.illinois.gov/item.php?id=" + auctionItem.ID;
+                                        }
                                         break;
                                     case 4:
                                         break;
@@ -120,6 +130,7 @@ namespace surplus_auctioneer_webdata
                             if (auctionItem.CurrentPrice != 0 &&
                                 auctionItem.ShortDescription != null)
                             {
+                                GetAuctionItemDetails(ref auctionItem);
                                 auctionItems.Add(auctionItem);
                             }
 
@@ -135,6 +146,21 @@ namespace surplus_auctioneer_webdata
             }
 
             return auctions;
+        }
+
+        private void GetAuctionItemDetails(ref AuctionItem auctionItem)
+        {
+            var webdata = Helpers.GetDataFromUrl(auctionItem.AuctionItemURL);
+
+            var dateTimeString = Regex.Match(webdata, @"\(([^)]+PM|AM+)\)").Value.Replace("(", "").Replace(")", "").Replace("-", "");
+
+            if (string.IsNullOrEmpty(dateTimeString))
+            {
+                //Didn't find an ending time between two parathesis, let's take it from the bottom of the page
+                dateTimeString = webdata.Substring(webdata.IndexOf("Auction ends:") + 62, 23).Replace("-","");
+            }
+
+            auctionItem.EndDateTime = DateTime.Parse(dateTimeString);
         }
 
         private Dictionary<int, string> getCategories()

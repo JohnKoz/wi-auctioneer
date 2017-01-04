@@ -32,5 +32,7 @@ namespace surplus_auctioneer_models
         public string ItemCondition { get; set; }
 
         public string AuctionCategory { get; set; }
+
+        public DateTime EndDateTime { get; set; }
     }
 }
