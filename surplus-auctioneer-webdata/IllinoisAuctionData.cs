@@ -1,15 +1,12 @@
-﻿using System;
+﻿using surplus_auctioneer_models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using surplus_auctioneer_models;
 using HAP = HtmlAgilityPack;
 
 namespace surplus_auctioneer_webdata
@@ -48,6 +45,9 @@ namespace surplus_auctioneer_webdata
                 }
 
                 bw?.ReportProgress(percentage, "Loading " + item.Value);
+#if DEBUG
+                System.Net.ServicePointManager.Expect100Continue = false;
+#endif
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://ibid.illinois.gov/browse.php?id=" + item.Key);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -108,7 +108,7 @@ namespace surplus_auctioneer_webdata
                                 case 4:
                                     break;
                                 case 5:
-                                    auctionItem.CurrentPrice = double.Parse(auctionItemElems.InnerText.Trim().Replace("$ ",""));
+                                    auctionItem.CurrentPrice = double.Parse(auctionItemElems.InnerText.Trim().Replace("$ ", ""));
                                     if (auctionItem.CurrentPrice == 0)
                                     {
                                         auctionItem.NextBidRequired = auctionItem.CurrentPrice;
@@ -145,7 +145,7 @@ namespace surplus_auctioneer_webdata
                     auctions.Add(auction);
                 }
             }
-            
+
             return auctions;
         }
 
@@ -180,5 +180,5 @@ namespace surplus_auctioneer_webdata
             return categories;
         }
 
-       }
+    }
 }
