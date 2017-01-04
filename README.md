@@ -5,3 +5,4 @@ Tool for reviewing and analyzing state-run surplus auctions.
 
 Currently supported states:
 - Wisconsin: http://www.wisurplus.com/
+- Illinois: https://ibid.illinois.gov/
