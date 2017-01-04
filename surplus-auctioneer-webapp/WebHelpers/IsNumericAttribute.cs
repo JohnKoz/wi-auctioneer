@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace surplus_auctioneer_webapp.Helpers
+namespace surplus_auctioneer_webapp.WebHelpers
 {
 public class IsNumericAttribute : ValidationAttribute
     {

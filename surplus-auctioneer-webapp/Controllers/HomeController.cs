@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using surplus_auctioneer_models;
-using surplus_auctioneer_webapp.Helpers;
 using surplus_auctioneer_webapp.Models;
+using surplus_auctioneer_webdata;
 using WebGrease.Css.Extensions;
 
 namespace surplus_auctioneer_webapp.Controllers
@@ -56,7 +56,7 @@ namespace surplus_auctioneer_webapp.Controllers
 
                 //If we're in DEBUG, don't use the cache, go out and get the results
 #if DEBUG
-                auctions = Tools.GetAllAuctions();
+                auctions = Helpers.GetAllAuctions();
 #else
                 auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
 #endif

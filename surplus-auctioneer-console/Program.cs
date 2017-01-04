@@ -13,11 +13,8 @@ namespace surplus_auctioneer_console
     {
         static void Main(string[] args)
         {
-            ISurplusAuctionData auctionData;
+            var auctionData = Helpers.GetAllAuctions();
 
-            auctionData = new WisconsinAuctionData();
-
-            var auctions = auctionData.GetAllAuctions(false, false, null);
             StringBuilder emailBody = new StringBuilder();
             string password = "";
 
@@ -27,7 +24,7 @@ namespace surplus_auctioneer_console
             }
             
 
-            foreach (Auction auction in auctions)
+            foreach (Auction auction in auctionData)
             {
                 if (!auction.AuctionName.Contains("AUCTION SUSPENDED"))
                 {

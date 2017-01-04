@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using surplus_auctioneer_models;
-using surplus_auctioneer_webapp.Helpers;
 
 namespace surplus_auctioneer_webapp.Models
 {

@@ -10,7 +10,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using surplus_auctioneer_models;
-using wi_auctioneer_webdata;
 using HAP = HtmlAgilityPack;
 
 namespace surplus_auctioneer_webdata
@@ -103,6 +102,8 @@ namespace surplus_auctioneer_webdata
                                     continue;
                                 case 3:
                                     auctionItem.ShortDescription = WebUtility.HtmlDecode(auctionItemElems.InnerText.Trim());
+                                    //TODO: Extract a proper full description for Illinois auctions
+                                    auctionItem.FullDescription = auctionItem.ShortDescription;
                                     break;
                                 case 4:
                                     break;
