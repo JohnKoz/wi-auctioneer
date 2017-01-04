@@ -28,6 +28,7 @@ namespace surplus_auctioneer_webdata
 
             foreach (KeyValuePair<int, String> item in categories)
             {
+                string webdata = "";
                 Auction auction = new Auction();
                 List<AuctionItem> auctionItems = new List<AuctionItem>();
                 auction.AuctionName = item.Value;
@@ -35,7 +36,7 @@ namespace surplus_auctioneer_webdata
 
                 //Calculate and report back percentage
                 int percentage =
-                           int.Parse(Math.Round(((counter + 1) / (double)(categories.Count() - 10) * 100)).ToString());
+                    int.Parse(Math.Round(((counter + 1)/(double) (categories.Count() - 10)*100)).ToString());
 
                 percentage += 10;
 
@@ -45,87 +46,91 @@ namespace surplus_auctioneer_webdata
                 }
 
                 bw?.ReportProgress(percentage, "Loading " + item.Value);
+
 #if DEBUG
                 System.Net.ServicePointManager.Expect100Continue = false;
 #endif
 
-                System.Net.ServicePointManager.Expect100Continue = false;
+                webdata = Helpers.GetDataFromUrl("https://ibid.illinois.gov/browse.php?id=" + item.Key);
 
-                WebClient webClient = new WebClient();
+                if (!string.IsNullOrEmpty(webdata)) { 
 
-                webClient.UseDefaultCredentials = true;
+                    doc.LoadHtml(webdata);
 
-                doc.LoadHtml(webClient.DownloadString("https://ibid.illinois.gov/browse.php?id=" + item.Key));
+                    //doc.LoadHtml(webClient.DownloadString("https://ibid.illinois.gov/browse.php?id=" + item.Key));
 
-                var root = doc.DocumentNode;
+                    var root = doc.DocumentNode;
 
-                var auctionItemNodes = root.SelectNodes("/html[1]/body[1]/div[2]/div[1]/div[2]/table[2]/tr");
+                    var auctionItemNodes = root.SelectNodes("/html[1]/body[1]/div[2]/div[1]/div[2]/table[2]/tr");
 
-                if (auctionItemNodes != null && auctionItemNodes.Any())
-                {
-                    int nodeCounter = 0;
-                    foreach (HAP.HtmlNode node in auctionItemNodes)
+                    if (auctionItemNodes != null && auctionItemNodes.Any())
                     {
-                        if (nodeCounter == 0)
+                        int nodeCounter = 0;
+                        foreach (HAP.HtmlNode node in auctionItemNodes)
                         {
-                            nodeCounter++;
-                            continue;
-                        }
-                        AuctionItem auctionItem = new AuctionItem();
-
-                        int elemCount = 0;
-                        foreach (HAP.HtmlNode auctionItemElems in node.ChildNodes)
-                        {
-                            switch (elemCount)
+                            if (nodeCounter == 0)
                             {
-                                case 0:
-                                case 1:
-                                case 2:
-                                    elemCount++;
-                                    continue;
-                                case 3:
-                                    auctionItem.ShortDescription = WebUtility.HtmlDecode(auctionItemElems.InnerText.Trim());
-                                    //TODO: Extract a proper full description for Illinois auctions
-                                    auctionItem.FullDescription = auctionItem.ShortDescription;
-                                    break;
-                                case 4:
-                                    break;
-                                case 5:
-                                    auctionItem.CurrentPrice = double.Parse(auctionItemElems.InnerText.Trim().Replace("$ ", ""));
-                                    if (auctionItem.CurrentPrice == 0)
-                                    {
-                                        auctionItem.NextBidRequired = auctionItem.CurrentPrice;
-                                    }
-                                    else
-                                    {
-                                        auctionItem.NextBidRequired = auctionItem.CurrentPrice + 0.01;
-                                    }
-                                    break;
-                                case 6:
-                                    break;
-                                case 7:
-                                    auctionItem.NumberOfBids = int.Parse(auctionItemElems.InnerText.Trim());
-                                    break;
+                                nodeCounter++;
+                                continue;
+                            }
+                            AuctionItem auctionItem = new AuctionItem();
+
+                            int elemCount = 0;
+                            foreach (HAP.HtmlNode auctionItemElems in node.ChildNodes)
+                            {
+                                switch (elemCount)
+                                {
+                                    case 0:
+                                    case 1:
+                                    case 2:
+                                        elemCount++;
+                                        continue;
+                                    case 3:
+                                        auctionItem.ShortDescription =
+                                            WebUtility.HtmlDecode(auctionItemElems.InnerText.Trim());
+                                        //TODO: Extract a proper full description for Illinois auctions
+                                        auctionItem.FullDescription = auctionItem.ShortDescription;
+                                        break;
+                                    case 4:
+                                        break;
+                                    case 5:
+                                        auctionItem.CurrentPrice =
+                                            double.Parse(auctionItemElems.InnerText.Trim().Replace("$ ", ""));
+                                        if (auctionItem.CurrentPrice == 0)
+                                        {
+                                            auctionItem.NextBidRequired = auctionItem.CurrentPrice;
+                                        }
+                                        else
+                                        {
+                                            auctionItem.NextBidRequired = auctionItem.CurrentPrice + 0.01;
+                                        }
+                                        break;
+                                    case 6:
+                                        break;
+                                    case 7:
+                                        auctionItem.NumberOfBids = int.Parse(auctionItemElems.InnerText.Trim());
+                                        break;
+                                }
+
+                                elemCount++;
                             }
 
-                            elemCount++;
+                            auctionItem.Auction = auction;
+
+                            if (auctionItem.CurrentPrice != 0 &&
+                                auctionItem.ShortDescription != null)
+                            {
+                                auctionItems.Add(auctionItem);
+                            }
+
+                            nodeCounter++;
                         }
 
-                        auctionItem.Auction = auction;
+                        auction.AuctionItems = auctionItems;
 
-                        if (auctionItem.CurrentPrice != 0 &&
-                            auctionItem.ShortDescription != null)
-                        {
-                            auctionItems.Add(auctionItem);
-                        }
-
-                        nodeCounter++;
+                        counter++;
+                        auctions.Add(auction);
                     }
-
-                    auction.AuctionItems = auctionItems;
-
-                    counter++;
-                    auctions.Add(auction);
                 }
             }
 

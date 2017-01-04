@@ -22,13 +22,9 @@ namespace surplus_auctioneer_webdata
 
             bw?.ReportProgress(0, "Retrieving auction list");
 
-            //System.Net.ServicePointManager.Expect100Continue = false;
+            //System.Net.ServicePointManager.Expect100Continue = false
 
-            WebClient webClient = new WebClient();
-
-            webClient.UseDefaultCredentials = true;
-
-            doc.LoadHtml(webClient.DownloadString("http://www.maxanet.com/cgi-bin/mncal.cgi?rlust"));
+            doc.LoadHtml(Helpers.GetDataFromUrl("http://www.maxanet.com/cgi-bin/mncal.cgi?rlust"));
 
             bw?.ReportProgress(10, "Auction list retrieved, starting auction loads");
 
@@ -145,7 +141,9 @@ namespace surplus_auctioneer_webdata
 
             var doc = new HAP.HtmlDocument();
 
-            doc.LoadHtml(new WebClient().DownloadString(auctionURL));
+            string webdata = Helpers.GetDataFromUrl(auctionURL);
+
+            doc.LoadHtml(webdata);
 
             var root = doc.DocumentNode;
 

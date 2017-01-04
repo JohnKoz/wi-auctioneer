@@ -45,5 +45,40 @@ namespace surplus_auctioneer_webdata
             }
             return img;
         }
+
+        public static String GetDataFromUrl(string url)
+        {
+
+#if DEBUG
+            System.Net.ServicePointManager.Expect100Continue = false;
+#endif
+
+            HttpWebRequest request =
+                (HttpWebRequest) WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            string data = "";
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+            }
+
+            return data;
+        }
     }
 }
