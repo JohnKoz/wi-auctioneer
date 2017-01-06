@@ -60,8 +60,9 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Auctions", "Auctions", "Home")</li>
-                <li>@Html.ActionLink("Search", "Search", "Search")</li>
+                <li>@Html.ActionLink("Search", "Search", "Auction")</li>
+                <li>@Html.ActionLink("Recommendations", "Recommendations", "Auction")</li>
+                <li>@Html.ActionLink("Auction List", "List", "Auction")</li>
             </ul>
             <!--Comment this line out so that login isn't available
             @Html.Partial("_LoginPartial")-->

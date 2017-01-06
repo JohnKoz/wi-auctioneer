@@ -7,11 +7,28 @@ using surplus_auctioneer_models;
 using surplus_auctioneer_webapp.Models;
 using surplus_auctioneer_webdata;
 using WebGrease.Css.Extensions;
+using surplus_auctioneer_decision_engine;
 
 namespace surplus_auctioneer_webapp.Controllers
 {
-    public class SearchController : Controller
+    public class AuctionController : Controller
     {
+        public ActionResult List()
+        {
+            ViewBag.Message = "Current Auctions";
+
+            ListViewModel model = new ListViewModel();
+
+
+            model.Auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+
+            if (model.Auctions == null)
+            {
+                throw new ApplicationException("No auctions found");
+            }
+
+            return View(model);
+        }
         public ActionResult Search()
         {
             ViewBag.Message = "Search for auction items here";
@@ -63,6 +80,21 @@ namespace surplus_auctioneer_webapp.Controllers
 
             return View(model);
 
+        }
+
+        public ActionResult Recommendations()
+        {
+            RecommendationsViewModel model = new RecommendationsViewModel();
+            List<Auction> auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+
+            if (auctions == null)
+            {
+                throw new ApplicationException("No auctions found");
+            }
+
+            model.RecommendedAuctionItems = AuctionSuggestions.GetSuggestions(auctions);
+
+            return View(model);
         }
     }
 }

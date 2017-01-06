@@ -17,21 +17,6 @@ namespace surplus_auctioneer_webapp.Controllers
             return View();
         }
 
-        public ActionResult Auctions()
-        {
-            ViewBag.Message = "Current Auctions";
-
-            AuctionViewModel model = new AuctionViewModel();
-            
-
-            model.Auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
-
-            if (model.Auctions == null)
-            {
-                throw new ApplicationException("No auctions found");
-            }
-
-            return View(model);
-        }
+       
     }
 }

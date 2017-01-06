@@ -203,15 +203,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecommendationsViewModel.cs" />
     <Compile Include="WebHelpers\IsNumericAttribute.cs" />
     <Compile Include="WebHelpers\Tools.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AuctionViewModel.cs" />
+    <Compile Include="Models\ListViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
@@ -261,8 +262,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Auctions.cshtml" />
-    <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Auction\List.cshtml" />
+    <Content Include="Views\Auction\Search.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -285,6 +286,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Auction\Recommendations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,6 +302,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\surplus-auctioneer-decision-engine\surplus-decision-engine.csproj">
+      <Project>{1759d339-6109-41a6-876b-0229880b9d5b}</Project>
+      <Name>surplus-decision-engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\surplus-auctioneer-models\surplus-auctioneer-models.csproj">
       <Project>{20867ec5-8199-46ed-8bce-b9cfdd486eee}</Project>
       <Name>surplus-auctioneer-models</Name>

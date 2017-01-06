@@ -6,8 +6,8 @@ using surplus_auctioneer_models;
 
 namespace surplus_auctioneer_webapp.Models
 {
-    public class AuctionViewModel
+    public class RecommendationsViewModel
     {
-        public List<Auction> Auctions { get; set; }
+        public Dictionary<string, List<AuctionItem>> RecommendedAuctionItems { get; set; }
     }
 }

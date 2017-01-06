@@ -22,13 +22,15 @@ namespace surplus_auctioneer_console
             {
                 password = args[0]?.ToString();
             }
-            
+                
+            Dictionary<string, List<AuctionItem>> suggestions = AuctionSuggestions.GetSuggestions(auctionData);
 
-            foreach (Auction auction in auctionData)
+            foreach(KeyValuePair<string, List<AuctionItem>> auctions in suggestions)
             {
-                if (!auction.AuctionName.Contains("AUCTION SUSPENDED"))
+                emailBody.Append(auctions.Key + Environment.NewLine);
+                foreach (AuctionItem item in auctions.Value)
                 {
-                    emailBody.Append(AuctionSuggestions.GetSuggestions(auction.AuctionItems.ToList()));
+                    emailBody.Append(item.ToString());
                 }
             }
 
@@ -49,7 +51,6 @@ namespace surplus_auctioneer_console
 #if DEBUG
             Console.ReadLine();
 #endif
-
 
         }
     }

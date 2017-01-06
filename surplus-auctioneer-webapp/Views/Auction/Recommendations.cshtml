@@ -1,0 +1,19 @@
+﻿@using surplus_auctioneer_models
+@model surplus_auctioneer_webapp.Models.RecommendationsViewModel
+@{
+    ViewBag.Title = "Recommendations";
+}
+
+<h2>Recommendations</h2>
+
+@foreach (KeyValuePair<string, List<AuctionItem>> auctions in Model.RecommendedAuctionItems)
+{
+    <h3>@auctions.Key</h3>
+    foreach (AuctionItem item in auctions.Value)
+    {
+        <div>@item.Auction.AuctionSource - 
+            <a href="@item.AuctionItemURL" target="_blank">@item.ShortDescription </a>
+            <b>Price:</b> $@item.NextBidRequired
+        </div>
+    }
+}

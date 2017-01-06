@@ -34,5 +34,12 @@ namespace surplus_auctioneer_models
         public string AuctionCategory { get; set; }
 
         public DateTime EndDateTime { get; set; }
+
+        public override string ToString()
+        {
+            return this.Auction.AuctionSource + " - <a href='" + this.AuctionItemURL + "'>" + ShortDescription +
+                   "</a> Price: " +
+                   this.CurrentPrice.ToString("C") + " " + this.Auction.AuctionEnd + "<br />" + Environment.NewLine;
+        }
     }
 }
