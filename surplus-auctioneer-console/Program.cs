@@ -27,7 +27,7 @@ namespace surplus_auctioneer_console
 
             foreach(KeyValuePair<string, List<AuctionItem>> auctions in suggestions)
             {
-                emailBody.Append(auctions.Key + Environment.NewLine);
+                emailBody.Append(auctions.Key + "<br />" + Environment.NewLine);
                 foreach (AuctionItem item in auctions.Value)
                 {
                     emailBody.Append(item.ToString());
