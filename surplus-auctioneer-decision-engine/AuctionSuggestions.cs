@@ -47,9 +47,9 @@ namespace surplus_auctioneer_decision_engine
 
 
                         keywords.Clear();
-                        keywords.AddRange(new string[] {"acre", "land", "property", "acreage", "Vacant Lot"});
+                        keywords.AddRange(new string[] {"acre", "land", "property", "acreage", "vacant lot"});
 
-                        if (keywords.Any(auctionItem.FullDescription.ToLower().Contains)
+                        if (keywords.Select(x => (" " + x)).Any(auctionItem.FullDescription.ToLower().Contains)
                             && auctionItem.CurrentPrice < 1000
                             && auctionItem.NextBidRequired < 1000
                             &&

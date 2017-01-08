@@ -7,7 +7,7 @@ using surplus_auctioneer_models;
 
 namespace surplus_auctioneer_webapp.Models
 {
-    public class SearchViewModel
+    public class SearchViewModel : ViewModel
     {
         public SearchViewModel()
         {
@@ -26,7 +26,5 @@ namespace surplus_auctioneer_webapp.Models
         public string Keywords { get; set; }
 
         public List<AuctionItem> AuctionItems { get; set; }
-
-        public string ErrorMessage { get; set; }
     }
 }

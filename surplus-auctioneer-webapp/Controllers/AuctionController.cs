@@ -94,6 +94,11 @@ namespace surplus_auctioneer_webapp.Controllers
 
             model.RecommendedAuctionItems = AuctionSuggestions.GetSuggestions(auctions);
 
+            if (!model.RecommendedAuctionItems.Any())
+            {
+                model.ErrorMessage = "No recommendations found";
+            }
+
             return View(model);
         }
     }
