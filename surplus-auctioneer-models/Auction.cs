@@ -8,6 +8,7 @@ namespace surplus_auctioneer_models
 {
     public class Auction : System.Object
     {
+        private DateTime _auctionDateTime;
         public string AuctionSource { get; set; }
 
         public int AuctionID { get; set; }
@@ -16,7 +17,22 @@ namespace surplus_auctioneer_models
 
         public string AuctionEnd { get; set; }
 
-        public DateTime AuctionEndDate { get; set; }
+        public DateTime AuctionEndDate
+        {
+            get { return _auctionDateTime; }
+            set
+            {
+                _auctionDateTime = value;
+                if (AuctionItems.Any())
+                {
+                    //Propegate end date to items
+                    foreach (AuctionItem item in AuctionItems)
+                    {
+                        item.EndDateTime = _auctionDateTime;
+                    }
+                }
+            }
+        }
 
         public IEnumerable<AuctionItem> AuctionItems { get; set; }
 

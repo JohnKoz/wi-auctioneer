@@ -1,0 +1,61 @@
+﻿@using surplus_auctioneer_models
+@model surplus_auctioneer_webapp.Models.SearchViewModel
+@{
+    ViewBag.Title = "Ending Soon";
+}
+
+@helper Truncate(string input, int length)
+{
+if (input != null)
+{
+    if (input.Length <= length)
+    {
+            @input
+    }
+    else
+    {
+            @input.Substring(0, length)<text>...</text>
+    }
+}
+}
+
+<script>
+    $(document).ready(function () {
+        my.Views.EndingSoon.init();
+    })
+</script>
+
+<h2>Buy Now!</h2>
+The auction items below are ending soon, within the next 24 hours.
+@if (Model.AuctionItems.Any())
+{
+    <table id="endingSoonAuctions" class="tablesorter">
+        <thead>
+            <tr>
+                <th>Auction Source</th>
+                <th>Short Description</th>
+                <th style="width: 100px">Current Price</th>
+                <th style="width: 125px">Next Required<br />Bid Amount</th>
+                <th>Number of Bids</th>
+                <th>Auction End</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AuctionItem item in Model.AuctionItems)
+            {
+                <tr>
+                    <td>@item.Auction.AuctionSource</td>
+                    <td><a target="_blank" href="@item.AuctionItemURL" title="@item.FullDescription">@Truncate(string.IsNullOrEmpty(item.ShortDescription) ? item.FullDescription : item.ShortDescription, 100)</a></td>
+                    <td>@item.CurrentPrice.ToString("C")</td>
+                    <td>@item.NextBidRequired.ToString("C")</td>
+                    <td>@item.NumberOfBids</td>
+                    <td>@(item.EndDateTime != DateTime.MinValue ? item.EndDateTime : item.Auction.AuctionEndDate)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>@Model.ErrorMessage</h3>
+}

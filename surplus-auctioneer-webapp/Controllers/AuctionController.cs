@@ -35,8 +35,6 @@ namespace surplus_auctioneer_webapp.Controllers
 
             SearchViewModel model = new SearchViewModel();
 
-            model.AuctionItems = new List<AuctionItem>();
-
             return View(model);
         }
 
@@ -97,6 +95,32 @@ namespace surplus_auctioneer_webapp.Controllers
             if (!model.RecommendedAuctionItems.Any())
             {
                 model.ErrorMessage = "No recommendations found";
+            }
+
+            return View(model);
+        }
+
+        public ActionResult EndingSoon()
+        {
+            SearchViewModel model = new SearchViewModel();
+            List<Auction> auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+
+            if (auctions == null)
+            {
+                throw new ApplicationException("No auctions found");
+            }
+
+            DateTime central = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
+                    DateTime.UtcNow, "Central Standard Time");
+
+            foreach (Auction auction in auctions)
+            {
+                auction.AuctionItems.Where(x => x.EndDateTime <= central.AddDays(1)).ForEach(model.AuctionItems.Add);
+            }
+
+            if (!model.AuctionItems.Any())
+            {
+                model.ErrorMessage = "No upcoming auctions found";
             }
 
             return View(model);

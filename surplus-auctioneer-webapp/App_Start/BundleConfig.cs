@@ -29,7 +29,8 @@ namespace surplus_auctioneer_webapp
 
             bundles.Add(new ScriptBundle("~/bundles/my-js").Include(
                         "~/Scripts/my/Main.js",
-                        "~/Scripts/my/Views/Search.js"
+                        "~/Scripts/my/Views/Search.js",
+                        "~/Scripts/my/Views/EndingSoon.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

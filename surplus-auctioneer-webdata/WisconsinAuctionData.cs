@@ -85,8 +85,6 @@ namespace surplus_auctioneer_webdata
 
                         auctionToAdd.AuctionEnd = auctionEnd;
 
-                        auctionToAdd.AuctionEndDate = DateTime.Parse(auctionEndDate);
-
                         auctionToAdd.AuctionID = int.Parse(auctionTitle.Substring(7, 2));
                         
                         auctionToAdd.AuctionName = auctionTitle;
@@ -104,6 +102,8 @@ namespace surplus_auctioneer_webdata
                         bw?.ReportProgress(percentage, "Loading " + auctionToAdd.AuctionName);
 
                         auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd, includeImages);
+
+                        auctionToAdd.AuctionEndDate = DateTime.Parse(auctionEndDate);
 
                         auctions.Add(auctionToAdd);
                     }
@@ -196,7 +196,20 @@ namespace surplus_auctioneer_webdata
                                 itemToAdd.FullDescription = itemToAdd.FullDescription.Replace("+/-", "").Trim();
                             }
 
-                            itemToAdd.ShortDescription = itemToAdd.FullDescription.Substring(0, itemToAdd.FullDescription.IndexOf('-') == -1 ? itemToAdd.FullDescription.Length : itemToAdd.FullDescription.IndexOf('-')).Trim();
+
+                            int firstDash = itemToAdd.FullDescription.IndexOf("-");
+
+                            //Fix for dashes appearing early in the description
+                            if (itemToAdd.FullDescription.ToLower().StartsWith("lot of") || (firstDash > -1 && firstDash < 5))
+                            {
+                                itemToAdd.ShortDescription = itemToAdd.FullDescription.Substring(0,
+                                    itemToAdd.FullDescription.IndexOf("-", firstDash + 1)).Trim();
+                            }
+                            else
+                            {
+                                itemToAdd.ShortDescription = itemToAdd.FullDescription.Substring(0, itemToAdd.FullDescription.IndexOf('-') == -1 ? itemToAdd.FullDescription.Length : itemToAdd.FullDescription.IndexOf('-')).Trim();
+                            }
+                            
                             break;
                         case 3:
                             itemToAdd.NumberOfBids = int.Parse(auctionCell.InnerText.Replace("&nbsp;", "0"));

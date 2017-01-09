@@ -13,6 +13,8 @@ namespace surplus_auctioneer_webapp.Models
         {
             MinPrice = 0;
             MaxPrice = 1000;
+
+            AuctionItems = new List<AuctionItem>();
         }
 
         [RegularExpression("([0-9]+)", ErrorMessage =  "Max Price must be a positive number")]
