@@ -7,8 +7,8 @@
     <ProjectGuid>{FDA8C3D4-9E5F-4966-9CA3-74DB7537F4F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>wi_auctioneer_webdata</RootNamespace>
-    <AssemblyName>wi-auctioneer-webdata</AssemblyName>
+    <RootNamespace>surplus_auctioneer_webdata</RootNamespace>
+    <AssemblyName>surplus-auctioneer-webdata</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,6 +34,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -47,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Helpers.cs" />
     <Compile Include="ISurplusAuctionData.cs" />
+    <Compile Include="MinnesotaAuctionData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IllinoisAuctionData.cs" />
     <Compile Include="WisconsinAuctionData.cs" />

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using surplus_auctioneer_models;
 using surplus_auctioneer_webdata;
+using System.Text.RegularExpressions;
 
 namespace surplus_auctioneer_webdata
 {
@@ -15,13 +16,18 @@ namespace surplus_auctioneer_webdata
     {
         public static List<Auction> GetAllAuctions()
         {
-            ISurplusAuctionData wiData = new WisconsinAuctionData();
-
-            var allAuctions = wiData.GetAllAuctions(false, false, null);
 
             ISurplusAuctionData ilData = new IllinoisAuctionData();
 
-            allAuctions = allAuctions.Concat(ilData.GetAllAuctions(false, false, null)).ToList<Auction>();
+            var allAuctions = ilData.GetAllAuctions(false, false, null);
+
+            ISurplusAuctionData mnData = new MinnesotaAuctionData();
+
+            allAuctions = allAuctions.Concat(mnData.GetAllAuctions(false, false, null)).ToList<Auction>();
+
+            ISurplusAuctionData wiData = new WisconsinAuctionData();
+
+            allAuctions = allAuctions.Concat(wiData.GetAllAuctions(false, false, null)).ToList<Auction>();
 
             return allAuctions.ToList<Auction>();
         }
@@ -46,8 +52,15 @@ namespace surplus_auctioneer_webdata
             return img;
         }
 
-        public static String GetDataFromUrl(string url)
+        static Regex _htmlRegex = new Regex("<.*?>", RegexOptions.Compiled);
+        public static string StripHTMLTags(string source)
         {
+            return _htmlRegex.Replace(source, string.Empty);
+        }
+
+        public static String GetDataFromUrl(string url, string method = "GET")
+        {
+            string data = "";
 
 #if DEBUG
             System.Net.ServicePointManager.Expect100Continue = false;
@@ -58,32 +71,45 @@ namespace surplus_auctioneer_webdata
 
             request.UseDefaultCredentials = true;
             request.AllowAutoRedirect = true;
-            request.Method = "GET";
-
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
-            string data = "";
-
-            if (response.StatusCode == HttpStatusCode.OK)
+            request.UserAgent = ".NET Framework";
+            request.Method = method;
+            request.ContentLength = 0;
+            
+            try
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
+                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                
 
-                if (response.CharacterSet == null)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    readStream = new StreamReader(receiveStream);
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+
+                    data = readStream.ReadToEnd();
+
+                    response.Close();
+                    readStream.Close();
+
+                    response.Dispose();
+                    readStream.Dispose();
                 }
-                else
+            }
+            catch (WebException wex)
+            {
+                if (wex.Response != null)
                 {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    data = new StreamReader(wex.Response.GetResponseStream())
+                        .ReadToEnd();
                 }
-
-                data = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                response.Dispose();
-                readStream.Dispose();
             }
 
             return data;

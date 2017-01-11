@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="IllinoisAuctionDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MinnesotaAuctionDataTests.cs" />
     <Compile Include="WisconsinAuctionDataTests.cs" />
   </ItemGroup>
   <ItemGroup>

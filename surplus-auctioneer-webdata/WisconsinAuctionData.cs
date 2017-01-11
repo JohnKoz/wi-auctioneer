@@ -103,7 +103,7 @@ namespace surplus_auctioneer_webdata
 
                         auctionToAdd.AuctionItems = GetAuctionItemsByName(auctionToAdd, includeImages);
 
-                        auctionToAdd.AuctionEndDate = DateTime.Parse(auctionEndDate);
+                        auctionToAdd.AuctionEndDate = DateTime.Parse(auctionEndDate.Replace("starting at", ""));
 
                         auctions.Add(auctionToAdd);
                     }
@@ -179,16 +179,17 @@ namespace surplus_auctioneer_webdata
                                 {
                                     ConditionEnd = auctionCell.InnerHtml.IndexOf("REMOVAL DEADLINE:");
                                 }
+                                else
+                                {
+                                    itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring(ConditionStart + 10, ConditionEnd - (ConditionStart + 10)); 
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>  -", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br> -", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>-", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("</b>", "");
+                                    itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<b> -", "");
 
-
-                                itemToAdd.ItemCondition = auctionCell.InnerHtml.Substring(ConditionStart + 10, ConditionEnd - (ConditionStart + 10)); 
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>  -", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br> -", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>-", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<br>", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("</b>", "");
-                                itemToAdd.ItemCondition = itemToAdd.ItemCondition.Replace("<b> -", "");
-                                
+                                }
                             }
 
                             if (itemToAdd.FullDescription.Substring(0, itemToAdd.FullDescription.Length).Contains("+/-"))

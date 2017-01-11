@@ -8,12 +8,13 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using surplus_auctioneer_models;
 using surplus_auctioneer_webdata;
+using surplus_auctioneer_webapp.WebHelpers;
 
 namespace surplus_auctioneer_webapp
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        IEnumerable<Auction> allAuctions;
+        
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -21,28 +22,10 @@ namespace surplus_auctioneer_webapp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            LoadCache("auctionData", null, CacheItemRemovedReason.Expired);
+            Tools.LoadAuctionCache("auctionData", null, CacheItemRemovedReason.Expired);
 
         }
 
-        private void LoadCache(string key, object value, CacheItemRemovedReason reason)
-        {
-            allAuctions = Helpers.GetAllAuctions();
-
-            if (HttpRuntime.Cache[key] != null)
-            {
-
-            HttpRuntime.Cache.Remove(key);
-            }
-
-            HttpRuntime.Cache.Insert(
-              /* key */                key,
-              /* value */              allAuctions,
-              /* dependencies */       null,
-              /* absoluteExpiration */ Cache.NoAbsoluteExpiration,
-              /* slidingExpiration */  new TimeSpan(0, 4, 0, 0), //Expire cache after 4 hours
-                                                                 /* priority */           CacheItemPriority.NotRemovable,
-              /* onRemoveCallback */   LoadCache);
-        }
+        
     }
 }

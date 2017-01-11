@@ -6,11 +6,10 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 <div>Note: Some auctions will be location based, others by category. This is determined by the source of the auction. Each state/organization determines their own way of grouping items.</div>
-<h4>Wisconsin</h4>
-
+<h4>Illinois</h4>
 @foreach (Auction auction in Model.Auctions)
 {
-    if (auction.AuctionSource == "Wisconsin")
+    if (auction.AuctionSource == "Illinois")
     {
         <p>
             @auction.AuctionName
@@ -18,11 +17,21 @@
     }
 }
 
-<h4>Illinois</h4>
-
+<h4>Minnesota</h4>
 @foreach (Auction auction in Model.Auctions)
 {
-    if (auction.AuctionSource == "Illinois")
+    if (auction.AuctionSource == "Minnesota")
+    {
+        <p>
+            @auction.AuctionName
+        </p>
+    }
+}
+
+<h4>Wisconsin</h4>
+@foreach (Auction auction in Model.Auctions)
+{
+    if (auction.AuctionSource == "Wisconsin")
     {
         <p>
             @auction.AuctionName

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using surplus_auctioneer_models;
 using surplus_auctioneer_webapp.Models;
 using surplus_auctioneer_webdata;
 using WebGrease.Css.Extensions;
 using surplus_auctioneer_decision_engine;
+using surplus_auctioneer_webapp.WebHelpers;
 
 namespace surplus_auctioneer_webapp.Controllers
 {
@@ -19,8 +21,7 @@ namespace surplus_auctioneer_webapp.Controllers
 
             ListViewModel model = new ListViewModel();
 
-
-            model.Auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+            model.Auctions = RetrieveAuctionsFromCache();
 
             if (model.Auctions == null)
             {
@@ -51,7 +52,7 @@ namespace surplus_auctioneer_webapp.Controllers
 #if DEBUG
                 auctions = Helpers.GetAllAuctions();
 #else
-                auctions = (List<Auction>) HttpRuntime.Cache["auctionData"];
+                auctions = RetrieveAuctionsFromCache();
 #endif
                 model.AuctionItems = new List<AuctionItem>();
 
@@ -83,12 +84,7 @@ namespace surplus_auctioneer_webapp.Controllers
         public ActionResult Recommendations()
         {
             RecommendationsViewModel model = new RecommendationsViewModel();
-            List<Auction> auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
-
-            if (auctions == null)
-            {
-                throw new ApplicationException("No auctions found");
-            }
+            List<Auction> auctions = RetrieveAuctionsFromCache();
 
             model.RecommendedAuctionItems = AuctionSuggestions.GetSuggestions(auctions);
 
@@ -103,12 +99,8 @@ namespace surplus_auctioneer_webapp.Controllers
         public ActionResult EndingSoon()
         {
             SearchViewModel model = new SearchViewModel();
-            List<Auction> auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
 
-            if (auctions == null)
-            {
-                throw new ApplicationException("No auctions found");
-            }
+            var auctions = RetrieveAuctionsFromCache();
 
             DateTime central = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
                     DateTime.UtcNow, "Central Standard Time");
@@ -124,6 +116,25 @@ namespace surplus_auctioneer_webapp.Controllers
             }
 
             return View(model);
+        }
+
+        private List<Auction> RetrieveAuctionsFromCache()
+        {
+            List<Auction> auctions = (List<Auction>)HttpRuntime.Cache["auctionData"];
+            int counter = 0;
+
+            while (auctions == null && counter < 5)
+            {
+                Tools.LoadAuctionCache("auctionData", null, CacheItemRemovedReason.Expired);
+                counter++;
+            }
+
+            if (auctions == null)
+            {
+                throw new ApplicationException("No auctions found in cache, cache refresh attempted 5 times");
+            }
+
+            return auctions;
         }
     }
 }
