@@ -18,8 +18,6 @@ namespace surplus_auctioneer_webdata
         {
 
             List<Auction> auctions = new List<Auction>();
-            var doc = new HAP.HtmlDocument();
-
             var auctionData = Helpers.GetDataFromUrl("https://www.minnbid.org/Mobile/GetLotsDataJs", "POST");
 
             auctionData = WebUtility.HtmlDecode(auctionData);
@@ -46,8 +44,18 @@ namespace surplus_auctioneer_webdata
                     itemToAdd.CurrentPrice = item.CurrentPrice;
                     itemToAdd.EndDateTime = item.ClosingDateTime;
                     itemToAdd.FullDescription = Helpers.StripHTMLTags(item.LotDescription.ToString());
+                    itemToAdd.AuctionItemURL = "https://www.minnbid.org/Mobile/AuctionLot/" + item.LotID;
                     itemToAdd.ShortDescription = item.ItemName;
                     itemToAdd.Auction = mainAuction;
+
+                    //The bidding increment is only stored on the item's page, so load the data from that page then parse out the increment
+                    var itemWebData  = Helpers.GetDataFromUrl(itemToAdd.AuctionItemURL);
+                    var doc = new HAP.HtmlDocument();
+                    doc.LoadHtml(itemWebData);
+                    var root = doc.DocumentNode;
+                    var increment = root.SelectNodes("//span").Where(x => x.GetAttributeValue("id", "") == "spnIncrement").FirstOrDefault().InnerText;
+                    //add the increment to the current price to determine the next bid required
+                    itemToAdd.NextBidRequired = itemToAdd.CurrentPrice + double.Parse(increment.Replace("$",""));
 
                     items.Add(itemToAdd);
                 }
