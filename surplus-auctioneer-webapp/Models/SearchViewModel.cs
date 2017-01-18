@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using surplus_auctioneer_models;
 
 namespace surplus_auctioneer_webapp.Models
@@ -24,8 +26,14 @@ namespace surplus_auctioneer_webapp.Models
             ErrorMessage = "Min Price must be between 0.01 and 1,000,000")]
         public double MinPrice { get; set; }
 
+        [DisplayName("Keywords (comma delimited)")]
         [DataType(DataType.MultilineText)]
         public string Keywords { get; set; }
+
+        [DisplayName("Auction Source")]
+        public MultiSelectList AuctionSources { get; set; }
+
+        public List<string> SelectedAuctionSources { get; set; }
 
         public List<AuctionItem> AuctionItems { get; set; }
     }

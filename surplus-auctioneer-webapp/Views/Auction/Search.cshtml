@@ -44,6 +44,10 @@
         @Html.LabelFor(model => model.Keywords)
         @Html.EditorFor(model => model.Keywords, new { @class = "form-control" })
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AuctionSources)
+        @Html.ListBoxFor(model => model.SelectedAuctionSources, Model.AuctionSources)
+    </div>
     <div class="form-group" >
         <input type="submit" class="btn btn-default" />
     </div>

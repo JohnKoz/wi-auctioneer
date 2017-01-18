@@ -36,6 +36,8 @@ namespace surplus_auctioneer_webapp.Controllers
 
             SearchViewModel model = new SearchViewModel();
 
+            model = AddAuctionSources(model);
+
             return View(model);
         }
 
@@ -45,6 +47,8 @@ namespace surplus_auctioneer_webapp.Controllers
             if (ModelState.IsValid)
             {
                 ViewBag.Message = "Search Results";
+
+                model = AddAuctionSources(model);
 
                 List<Auction> auctions;
 
@@ -71,6 +75,16 @@ namespace surplus_auctioneer_webapp.Controllers
                                 (x.FullDescription != null && items.Any(x.FullDescription.ToLower().Contains))).ToList();
                 }
 
+                if (model.SelectedAuctionSources != null)
+                {
+                    List<AuctionItem> tempList = new List<AuctionItem>();
+                    foreach (string item in model.SelectedAuctionSources)
+                    {
+                        tempList = tempList.Concat(model.AuctionItems.Where(x => x.Auction.AuctionSource == item)).ToList();
+                    }
+                    model.AuctionItems = tempList;
+                }
+
                 if (!model.AuctionItems.Any())
                 {
                     model.ErrorMessage = "No Results Found";
@@ -79,6 +93,19 @@ namespace surplus_auctioneer_webapp.Controllers
 
             return View(model);
 
+        }
+
+        private SearchViewModel AddAuctionSources(SearchViewModel model)
+        {
+            List<SelectListItem> auctionSources = new List<SelectListItem>();
+
+            auctionSources.Add(new SelectListItem() { Text = "Illinois", Value = "Illinois" });
+            auctionSources.Add(new SelectListItem() { Text = "Minnesota", Value = "Minnesota" });
+            auctionSources.Add(new SelectListItem() { Text = "Wisconsin", Value = "Wisconsin" });
+
+            model.AuctionSources = new MultiSelectList(auctionSources.OrderBy(x => x.Text), "Value", "Text");
+
+            return model;
         }
 
         public ActionResult Recommendations()
