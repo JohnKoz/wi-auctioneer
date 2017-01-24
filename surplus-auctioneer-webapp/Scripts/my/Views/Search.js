@@ -4,7 +4,7 @@ my.Views.Search = (function ($) {
     "use strict";
 
     var init = function init() {
-        $("#searchResults").tablesorter();
+        my.Views._Shared.initTables();
     }
 
     return {

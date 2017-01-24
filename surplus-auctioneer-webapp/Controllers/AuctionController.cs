@@ -134,7 +134,14 @@ namespace surplus_auctioneer_webapp.Controllers
 
             foreach (Auction auction in auctions)
             {
+                
+#if DEBUG
+                //Do 5 days if in DEBUG to make sure we get results
+                auction.AuctionItems.Where(x => x.EndDateTime <= central.AddDays(5)).ForEach(model.AuctionItems.Add);
+#else
                 auction.AuctionItems.Where(x => x.EndDateTime <= central.AddDays(1)).ForEach(model.AuctionItems.Add);
+#endif
+
             }
 
             if (!model.AuctionItems.Any())

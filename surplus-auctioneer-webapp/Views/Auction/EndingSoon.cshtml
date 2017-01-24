@@ -29,31 +29,51 @@ if (input != null)
 The auction items below are ending soon, within the next 24 hours.
 @if (Model.AuctionItems.Any())
 {
-    <table id="endingSoonAuctions" class="tablesorter">
+    <table class="tableSorter">
         <thead>
-            <tr>
-                <th>Auction Source</th>
-                <th>Short Description</th>
-                <th style="width: 100px">Current Price</th>
-                <th style="width: 125px">Next Required<br />Bid Amount</th>
-                <th>Number of Bids</th>
-                <th>Auction End</th>
-            </tr>
+        <tr>
+            <th>Auction Source</th>
+            <th>Short Description</th>
+            <th style="width: 100px">Current Price</th>
+            <th style="width: 125px">Next Required<br />Bid Amount</th>
+            <th>Number of Bids</th>
+            <th>Auction End</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (AuctionItem item in Model.AuctionItems)
-            {
-                <tr>
-                    <td>@item.Auction.AuctionSource</td>
-                    <td><a target="_blank" href="@item.AuctionItemURL" title="@item.FullDescription">@Truncate(string.IsNullOrEmpty(item.ShortDescription) ? item.FullDescription : item.ShortDescription, 100)</a></td>
-                    <td>@item.CurrentPrice.ToString("C")</td>
-                    <td>@item.NextBidRequired.ToString("C")</td>
-                    <td>@item.NumberOfBids</td>
-                    <td>@(item.EndDateTime != DateTime.MinValue ? item.EndDateTime : item.Auction.AuctionEndDate)</td>
-                </tr>
-            }
+        @foreach (AuctionItem item in Model.AuctionItems)
+        {
+            <tr>
+                <td>@item.Auction.AuctionSource</td>
+                <td><a target="_blank" href="@item.AuctionItemURL">@Truncate(string.IsNullOrEmpty(item.ShortDescription) ? item.FullDescription : item.ShortDescription, 100)</a></td>
+                <td>@item.CurrentPrice.ToString("C")</td>
+                <td>@item.NextBidRequired.ToString("C")</td>
+                <td>@item.NumberOfBids</td>
+                <td>@(item.EndDateTime != DateTime.MinValue ? item.EndDateTime : item.Auction.AuctionEndDate)</td>
+            </tr>
+        }
         </tbody>
     </table>
+    <!-- pager -->
+    <div class="pager tablesorter-pager">
+        <form>
+        <img src="@Url.Content("~/Content/Images/first.png")" class="first"/>
+        <img src="@Url.Content("~/Content/Images/prev.png")" class="prev"/>
+        <!-- the "pagedisplay" can be any element, including an input -->
+        <span class="pagedisplay" data-pager-output-filtered="{startRow:input} &ndash; {endRow} / {filteredRows} of {totalRows} total rows"></span>
+        <img src="@Url.Content("~/Content/Images/next.png")" class="next"/>
+        <img src="@Url.Content("~/Content/Images/last.png")" class="last"/>
+        <select class="pagesize">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="all">All Rows</option>
+        </select>
+        <select class="gotoPage" title="Select page number">
+        </select>
+        </form>
+    </div>
 }
 else
 {

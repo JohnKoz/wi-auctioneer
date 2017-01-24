@@ -23,7 +23,7 @@ The auction items below are ending soon, and below a predetermined threshold. Th
         {
             <div>@item.Auction.AuctionSource -
                 <a href="@item.AuctionItemURL" target="_blank">@item.ShortDescription </a>
-                <b>Price:</b> $@item.NextBidRequired
+                <b>Price:</b> @item.NextBidRequired.ToString("C")
             </div>
         }
     }

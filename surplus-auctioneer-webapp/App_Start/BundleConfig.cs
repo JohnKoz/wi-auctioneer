@@ -9,11 +9,12 @@ namespace surplus_auctioneer_webapp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.tablesorter.js"));
+                        "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquerytablesorter").Include(
-                        "~/Scripts/jquery.tablesorter.js"));
+                        "~/Scripts/jquery.tablesorter.js",
+                        "~/Scripts/jquery.tablesorter.combined.js",
+                        "~/Scripts/jquery.tablesorter.pager.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,12 +30,18 @@ namespace surplus_auctioneer_webapp
 
             bundles.Add(new ScriptBundle("~/bundles/my-js").Include(
                         "~/Scripts/my/Main.js",
+                        "~/Scripts/my/Views/_Shared.js",
                         "~/Scripts/my/Views/Search.js",
                         "~/Scripts/my/Views/EndingSoon.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery.tablesorter.pager.css",
+                      "~/Content/filter.formatter.min.css",
+                      "~/Content/dragtable.mod.min.css",
+                      "~/Content/theme.blackice.min.css",
+                      "~/Content/theme.blue.min.css",
                       "~/Content/site.css"));
         }
     }

@@ -3,8 +3,8 @@
 my.Views.EndingSoon = (function ($) {
     "use strict";
 
-    var init = function init() {
-        $("#endingSoonAuctions").tablesorter();
+    var init = function () {
+        my.Views._Shared.initTables();
     }
 
     return {
