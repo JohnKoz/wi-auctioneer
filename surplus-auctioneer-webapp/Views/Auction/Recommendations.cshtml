@@ -1,0 +1,34 @@
+﻿@using surplus_auctioneer_models
+@model surplus_auctioneer_webapp.Models.RecommendationsViewModel
+@{
+    ViewBag.Title = "Recommendations";
+}
+
+<h2>Recommendations</h2>
+The auction items below are ending soon, and below a predetermined threshold. They may represent a good buy!
+@if (Model.RecommendedAuctionItems.Any())
+{
+    foreach (KeyValuePair<string, List<AuctionItem>> auctions in Model.RecommendedAuctionItems)
+    {
+        <h3>@auctions.Key</h3>
+        if (auctions.Key == "Property")
+        {
+            <span>The following auctions are ending within the next 48 hours:</span>
+        }
+        else
+        {
+            <span>The following auctions are ending within the next 24 hours:</span>
+        }
+        foreach (AuctionItem item in auctions.Value)
+        {
+            <div>@item.Auction.AuctionSource -
+                <a href="@item.AuctionItemURL" target="_blank">@item.ShortDescription </a>
+                <b>Price:</b> @item.NextBidRequired.ToString("C")
+            </div>
+        }
+    }
+}
+else
+{
+    <h3>@Model.ErrorMessage</h3>
+}

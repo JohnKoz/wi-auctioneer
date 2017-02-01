@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-app", "surplus-auctioneer-app\surplus-auctioneer-app.csproj", "{6D565E1F-C377-4D6C-8409-6ED1B34C6AB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-models", "surplus-auctioneer-models\surplus-auctioneer-models.csproj", "{20867EC5-8199-46ED-8BCE-B9CFDD486EEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-webdata", "surplus-auctioneer-webdata\surplus-auctioneer-webdata.csproj", "{FDA8C3D4-9E5F-4966-9CA3-74DB7537F4F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-console", "surplus-auctioneer-console\surplus-auctioneer-console.csproj", "{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-decision-engine", "surplus-auctioneer-decision-engine\surplus-decision-engine.csproj", "{1759D339-6109-41A6-876B-0229880B9D5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-webapp", "surplus-auctioneer-webapp\surplus-auctioneer-webapp.csproj", "{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "surplus-auctioneer-webdata-tests", "surplus-auctioneer-webdata-tests\surplus-auctioneer-webdata-tests.csproj", "{83CE4BE3-5E32-4701-9ECF-99F743B052A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D565E1F-C377-4D6C-8409-6ED1B34C6AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D565E1F-C377-4D6C-8409-6ED1B34C6AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D565E1F-C377-4D6C-8409-6ED1B34C6AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D565E1F-C377-4D6C-8409-6ED1B34C6AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20867EC5-8199-46ED-8BCE-B9CFDD486EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20867EC5-8199-46ED-8BCE-B9CFDD486EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20867EC5-8199-46ED-8BCE-B9CFDD486EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20867EC5-8199-46ED-8BCE-B9CFDD486EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA8C3D4-9E5F-4966-9CA3-74DB7537F4F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA8C3D4-9E5F-4966-9CA3-74DB7537F4F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA8C3D4-9E5F-4966-9CA3-74DB7537F4F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA8C3D4-9E5F-4966-9CA3-74DB7537F4F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E273DA-0A28-4F9D-8E94-BC68F3D434DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1759D339-6109-41A6-876B-0229880B9D5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6E3DD2-3028-4A45-ADAD-315E05E931F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CE4BE3-5E32-4701-9ECF-99F743B052A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CE4BE3-5E32-4701-9ECF-99F743B052A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CE4BE3-5E32-4701-9ECF-99F743B052A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CE4BE3-5E32-4701-9ECF-99F743B052A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
